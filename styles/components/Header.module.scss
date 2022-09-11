@@ -1,0 +1,22 @@
+@import '../variables.scss';
+
+#header {
+  padding: 2em 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#logo {
+  font-size: 3em;
+}
+
+#menuLink {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  @media screen and (min-width: $screen-md) {
+    display: none;
+  }
+}
