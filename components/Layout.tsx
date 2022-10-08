@@ -22,26 +22,28 @@ export default function Layout({ children }: PropsWithChildren) {
       </aside>
 
       <div id={styles.menu} style={menuOpen ? {} : { width: 0, padding: 0, opacity: 0 }}>
-        <div onClick={() => setMenuOpen(false)}>
+        <div onClick={() => setMenuOpen(false)} id={styles.closeButton}>
           <Icon path={mdiClose} title='Close Menu' size={1.5} />
         </div>
 
-        <nav>
+        <nav onClick={() => setMenuOpen(false)}>
           <Link href='/'>Home</Link>
           <Link href='/episodes'>Episodes</Link>
-          <Link href='/subscribe'>Subscribe to the Podcast</Link>
           <Link href='/contact'>Contact</Link>
-          <Link href='/shop'>Shop</Link>
+          <Link href=''>Shop (Coming soon!)</Link>
         </nav>
 
-        <SocialBar />
+        <SocialBar light />
       </div>
 
       <div id={styles.siteContent}>
         <Header setMenuOpen={setMenuOpen} />
         <main>{children}</main>
         <Footer />
-        {menuOpen ? '' : <SocialBar fixed />}
+
+        <div id={styles.mainSocialBar} style={menuOpen ? { display: 'none' } : {}}>
+          <SocialBar fixed />
+        </div>
       </div>
     </div>
   );

@@ -1,14 +1,10 @@
 @import '../variables.scss';
 
 #header {
-  padding: 2em 0;
+  padding: 3em 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-#logo {
-  font-size: 3em;
 }
 
 #menuLink {
