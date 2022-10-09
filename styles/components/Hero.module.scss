@@ -1,48 +1,41 @@
+@import '../variables.scss';
+
 #hero {
-  height: 90vh;
-  width: min(100%, 1600px);
+  width: 100vw;
+  height: 100vh;
+  padding: 0 2em;
   display: flex;
   align-items: center;
-  padding: 0 3em;
+  margin-bottom: 8em;
+  background-color: rgb(238, 238, 238);
+
+  @media screen and (min-width: $screen-md) {
+    flex-direction: row;
+    padding: 0 8em;
+    margin-bottom: 0;
+    min-height: 95vh;
+  }
 }
 
 #heroContent {
+  width: 100%;
+
   div {
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
   }
-}
-
-#heroImages {
-  img {
-    height: 50%;
-    position: absolute;
-    right: 15em;
-    top: 10em;
-    border-radius: 20em;
-
-    &:nth-of-type(2) {
-      right: 40em;
-      top: 30em;
-    }
-  }
-}
-
-#abstractIcon {
-  position: absolute;
-  font-size: 10em;
-  line-height: .5em;
-  letter-spacing: .1em;
-  top: 1em;
-  right: 5.25em;
 }
 
 #subtitle {
-  font-size: 2em;
+  font-size: 1em;
 }
 
 #title {
-  font-size: 10em;
+  font-size: 5em;
   font-weight: 900;
   line-height: 0.75em;
   margin-bottom: 2em;
+}
+
+#cta {
+  font-size: 1.5em;
 }

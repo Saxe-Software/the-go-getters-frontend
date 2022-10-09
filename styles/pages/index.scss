@@ -1,0 +1,33 @@
+@import '../variables.scss';
+
+#latest {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > div {
+    padding: 0.5em 0.75em;
+    width: 100%;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  @media screen and (min-width: $screen-md) {
+    & > div {
+      width: 50%;
+    }
+  }
+
+  @media screen and (min-width: $screen-xl) {
+    & > div {
+      width: 33.3333%;
+    }
+  }
+
+  @media screen and (min-width: $screen-xxl) {
+    & > div {
+      width: 25%;
+    }
+  }
+}

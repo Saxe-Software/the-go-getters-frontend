@@ -8,7 +8,11 @@ const Home: NextPage = () => {
     <div>
       <Hero />
       <PageSection title='Latest Episodes'>
-        <Episode youtubeVideoId='SqWyB0aYiDA'/>
+        <div id='latest'>
+          <Episode youtubeVideoId='SqWyB0aYiDA' />
+          <Episode youtubeVideoId='SqWyB0aYiDA' />
+          <Episode youtubeVideoId='SqWyB0aYiDA' />
+        </div>
       </PageSection>
     </div>
   );

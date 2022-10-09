@@ -11,7 +11,7 @@ export default function Header({ setMenuOpen }: HeaderProps) {
   return (
     <header id={styles.header}>
       <div id={styles.logo}>
-        <Image src='/logo.png' alt='Go Getters Logo' width={150} height={40}/>
+        {/* <Image src='/logo.png' alt='Go Getters Logo' width={150} height={40}/> */}
       </div>
 
       <div id={styles.menuLink} onClick={() => setMenuOpen(true)}>
