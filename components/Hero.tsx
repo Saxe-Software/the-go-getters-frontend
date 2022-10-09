@@ -1,5 +1,4 @@
 import styles from '../styles/components/Hero.module.scss';
-import Image from 'next/image';
 
 export default function Hero() {
   return (
@@ -16,10 +15,11 @@ export default function Hero() {
           <br />
         </div>
 
+        <div id={styles.description}>
+          We sit down with entreprenuers, creatives, athletes, artists, and other go getters.
+        </div>
+
         <div>
-          <a href='/episodes' className='button' id={styles.cta}>
-            Start Listening
-          </a>
         </div>
       </div>
     </div>

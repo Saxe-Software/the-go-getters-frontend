@@ -12,6 +12,7 @@ const Home: NextPage = () => {
           <Episode youtubeVideoId='SqWyB0aYiDA' />
           <Episode youtubeVideoId='SqWyB0aYiDA' />
           <Episode youtubeVideoId='SqWyB0aYiDA' />
+          <Episode youtubeVideoId='SqWyB0aYiDA' />
         </div>
       </PageSection>
     </div>

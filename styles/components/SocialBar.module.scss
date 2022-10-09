@@ -81,3 +81,11 @@
     }
   }
 }
+
+#anchor {
+  &:hover {
+    svg {
+      color: $anchor;
+    }
+  }
+}

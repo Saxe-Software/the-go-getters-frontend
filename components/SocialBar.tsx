@@ -1,5 +1,5 @@
 import styles from '../styles/components/SocialBar.module.scss';
-import { mdiYoutube, mdiSpotify, mdiInstagram, mdiTwitch } from '@mdi/js';
+import { mdiYoutube, mdiSpotify, mdiInstagram, mdiTwitch, mdiHandshake } from '@mdi/js';
 import Icon from '@mdi/react';
 
 type SocialBarProps = {
@@ -28,6 +28,11 @@ export default function SocialBar({ fixed, light }: SocialBarProps) {
       <div>
         <a id={styles.twitch} href='https://www.twitch.tv/gogetterslive'>
           <Icon path={mdiTwitch} title='Twitch' />
+        </a>
+      </div>
+      <div>
+        <a id={styles.anchor} href='https://anchor.fm/thegogetterspodcast'>
+          <Icon path={mdiHandshake} title='Support and Feedback' />
         </a>
       </div>
     </div>
