@@ -45,12 +45,12 @@ export default function Episode(episode: EpisodeProps) {
           </div>
         )}
 
-        {episode.guests.map(guest => (
+        {episode.guests.map((guest: any) => (
           <div key={guest.name.replace(' ', '').toUpperCase()}>
             <h2>{guest.name}</h2>
             <p>{guest.description}</p>
 
-            {guest.links.map(link => (
+            {guest.links.map((link: any) => (
               <div key={link.href}>
                 <a href={link.href}>{link.label}</a>
               </div>
@@ -62,7 +62,7 @@ export default function Episode(episode: EpisodeProps) {
           <div>
             <h2>Additional Resources</h2>
 
-            {episode.additionalResources.map(link => (
+            {episode.additionalResources.map((link: any) => (
               <div key={link.href}>
                 <a href={link.href}>{link.label}</a>
               </div>
