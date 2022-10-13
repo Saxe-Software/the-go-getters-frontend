@@ -20,8 +20,6 @@ type EpisodeProps = {
 };
 
 export default function Episode(episode: EpisodeProps) {
-  console.log('EPISODE', episode);
-
   return (
     <div id='episode'>
       <div id='episode-body'>

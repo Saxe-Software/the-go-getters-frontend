@@ -1,6 +1,6 @@
 import styles from '../styles/components/Hero.module.scss';
 
-export default function Hero() {
+export default function Hero({ description }: any) {
   return (
     <div id={styles.hero}>
       <div id={styles.heroContent}>
@@ -15,12 +15,7 @@ export default function Hero() {
           <br />
         </div>
 
-        <div id={styles.description}>
-          We sit down with entreprenuers, creatives, athletes, artists, and other go getters.
-        </div>
-
-        <div>
-        </div>
+        <div id={styles.description}>{description}</div>
       </div>
     </div>
   );
