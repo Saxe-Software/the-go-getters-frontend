@@ -24,3 +24,14 @@ a.button {
     background-color: $secondaryColor;
   }
 }
+
+a {
+  color: $secondaryColor;
+  text-decoration: none;
+  transition: font-size .1s;
+
+  &:hover {
+    color: $secondaryBgColor;
+    font-size: 1.1em;
+  }
+}
