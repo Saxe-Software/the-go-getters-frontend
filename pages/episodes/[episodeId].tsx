@@ -1,7 +1,6 @@
 import type { GetStaticPaths, NextPage } from 'next';
 import { mdiArrowLeft, mdiArrowRight } from '@mdi/js';
 import Icon from '@mdi/react';
-import axios from 'axios';
 import { getApiData } from '../../helpers/api';
 
 type EpisodeProps = {

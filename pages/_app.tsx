@@ -20,16 +20,4 @@ function MyApp({ Component, pageProps, episodes }: PageProps) {
   );
 }
 
-export async function getStaticProps(context: any) {
-  const res = await axios.get(`${process.env.API_ROOT}/episodes`, {
-    headers: {
-      Authorization: `bearer ${process.env.API_KEY}`,
-    },
-  });
-
-  return {
-    props: { episodes: res.data.data },
-  };
-}
-
 export default MyApp;

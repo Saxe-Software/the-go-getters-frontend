@@ -1,7 +1,6 @@
 import Hero from '../components/Hero';
 import PageSection from '../components/PageSection';
 import Episode from '../components/Episode';
-import axios from 'axios';
 import { getApiData } from '../helpers/api';
 
 export default function Home({ description }: any) {
