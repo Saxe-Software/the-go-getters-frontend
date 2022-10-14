@@ -2,6 +2,7 @@ import Hero from '../components/Hero';
 import PageSection from '../components/PageSection';
 import Episode from '../components/Episode';
 import axios from 'axios';
+import { getApiData } from '../helpers/api';
 
 export default function Home({ description }: any) {
   return (
@@ -20,18 +21,13 @@ export default function Home({ description }: any) {
 }
 
 export async function getStaticProps(context: any) {
-  const res = await axios.get(`${process.env.API_ROOT}/homepage`, {
-    headers: {
-      Authorization: `bearer ${process.env.API_KEY}`,
-    },
+  const homepage = await getApiData(`/homepage`, {
     params: {
       populate: '*',
     },
   });
 
-  console.log(res.data.data.attributes.description)
-
   return {
-    props: res.data.data.attributes,
+    props: homepage.attributes,
   };
 }

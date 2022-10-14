@@ -2,6 +2,7 @@ import type { GetStaticPaths, NextPage } from 'next';
 import { mdiArrowLeft, mdiArrowRight } from '@mdi/js';
 import Icon from '@mdi/react';
 import axios from 'axios';
+import { getApiData } from '../../helpers/api';
 
 type EpisodeProps = {
   id: number;
@@ -103,13 +104,9 @@ export default function Episode(episode: EpisodeProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await axios.get(`${process.env.API_ROOT}/episodes`, {
-    headers: {
-      Authorization: `bearer ${process.env.API_KEY}`,
-    },
-  });
+  const episodes = await getApiData(`/episodes`);
 
-  const paths = res.data.data.map((episode: { id: number }) => {
+  const paths = episodes.map((episode: { id: number }) => {
     return {
       params: {
         episodeId: episode.id.toString(),
@@ -121,25 +118,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export async function getStaticProps(context: any) {
-  const episodeRes = await axios.get(`${process.env.API_ROOT}/episodes/${context.params.episodeId}`, {
-    headers: {
-      Authorization: `bearer ${process.env.API_KEY}`,
-    },
+  const episode = await getApiData(`/episodes/${context.params.episodeId}`, {
     params: {
       populate: ['links', 'guests.links'].toString(),
     },
   });
 
-  const extraRes = await axios.get(`${process.env.API_ROOT}/episode-extra`, {
-    headers: {
-      Authorization: `bearer ${process.env.API_KEY}`,
-    },
+  const episodeExtra = await getApiData(`/episode-extra`, {
     params: {
       populate: ['extraSections.links'].toString(),
     },
   });
 
   return {
-    props: { extraSections: extraRes.data.data.attributes.extraSections, ...episodeRes.data.data.attributes },
+    props: { extraSections: episodeExtra.attributes.extraSections, ...episode.attributes },
   };
 }
