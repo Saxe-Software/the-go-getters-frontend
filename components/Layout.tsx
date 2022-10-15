@@ -1,13 +1,19 @@
 import styles from '../styles/components/Layout.module.scss';
 import { PropsWithChildren, useState } from 'react';
-import { mdiMenu, mdiClose } from '@mdi/js';
+import { mdiMenu, mdiClose, mdiWeatherNight, mdiWeatherSunny } from '@mdi/js';
 import Link from 'next/link';
 import Icon from '@mdi/react';
 import Header from '../components/Header';
 import Footer from './Footer';
 import SocialBar from './SocialBar';
+import Switch from '@mui/material/Switch';
 
-export default function Layout({ children }: PropsWithChildren) {
+type LayoutProps = {
+  darkMode: boolean;
+  setDarkMode: Function;
+} & PropsWithChildren;
+
+export default function Layout({ children, darkMode, setDarkMode }: LayoutProps) {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   return (
@@ -22,8 +28,15 @@ export default function Layout({ children }: PropsWithChildren) {
       </aside>
 
       <div id={styles.menu} style={menuOpen ? {} : { width: 0, padding: 0, opacity: 0 }}>
-        <div onClick={() => setMenuOpen(false)} id={styles.closeButton}>
-          <Icon path={mdiClose} title='Close Menu' size={1.5} />
+        <div id={styles.menuHeader}>
+          <div onClick={() => setMenuOpen(false)} id={styles.closeButton}>
+            <Icon path={mdiClose} title='Close Menu' size={1.5} />
+          </div>
+
+          <div className={styles.themeWrapper}>
+            <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} color='default' />
+            <Icon path={darkMode ? mdiWeatherNight : mdiWeatherSunny} size={1}></Icon>
+          </div>
         </div>
 
         <nav onClick={() => setMenuOpen(false)}>

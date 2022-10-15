@@ -2,31 +2,34 @@ import Hero from '../components/Hero';
 import PageSection from '../components/PageSection';
 import Episode from '../components/Episode';
 import { getApiData } from '../helpers/api';
+import Button from '@mui/material/Button';
 
-export default function Home({ description }: any) {
+export default function Home({ title, description, episodes }: any) {
   return (
     <div>
       <Hero description={description} />
       <PageSection title='Latest Episodes'>
         <div id='latest'>
-          <Episode youtubeVideoId='SqWyB0aYiDA' />
-          <Episode youtubeVideoId='SqWyB0aYiDA' />
-          <Episode youtubeVideoId='SqWyB0aYiDA' />
-          <Episode youtubeVideoId='SqWyB0aYiDA' />
+          {episodes
+            .reverse()
+            .slice(0, 4)
+            .map((episode: any) => (
+              <Episode key={episode.attributes.youtubeVideoId} youtubeVideoId={episode.attributes.youtubeVideoId} />
+            ))}
         </div>
+        <Button variant='text'>See all episodes</Button>
       </PageSection>
     </div>
   );
 }
 
 export async function getStaticProps(context: any) {
-  const homepage = await getApiData(`/homepage`, {
-    params: {
-      populate: '*',
-    },
-  });
+  const homepage = await getApiData(`/homepage`, ['*']);
+  const episodes = await getApiData(`/episodes`);
+
+  console.log({ episodes, ...homepage.attributes });
 
   return {
-    props: homepage.attributes,
+    props: { episodes, ...homepage.attributes },
   };
 }

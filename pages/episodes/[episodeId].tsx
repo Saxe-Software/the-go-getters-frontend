@@ -117,17 +117,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export async function getStaticProps(context: any) {
-  const episode = await getApiData(`/episodes/${context.params.episodeId}`, {
-    params: {
-      populate: ['links', 'guests.links'].toString(),
-    },
-  });
-
-  const episodeExtra = await getApiData(`/episode-extra`, {
-    params: {
-      populate: ['extraSections.links'].toString(),
-    },
-  });
+  const episode = await getApiData(`/episodes/${context.params.episodeId}`, ['links', 'guests.links']);
+  const episodeExtra = await getApiData(`/episode-extra`, ['extraSections.links']);
 
   return {
     props: { extraSections: episodeExtra.attributes.extraSections, ...episode.attributes },

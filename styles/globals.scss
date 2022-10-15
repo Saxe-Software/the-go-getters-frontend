@@ -10,28 +10,3 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-
-a.button {
-  background-color: $secondaryBgColor;
-  color:white;
-  text-decoration: none;
-  padding: .5em 2em;
-  font-size: 2em;
-  cursor: pointer;
-  border-radius: 1em;
-
-  &:hover {
-    background-color: $secondaryColor;
-  }
-}
-
-a {
-  color: $secondaryColor;
-  text-decoration: none;
-  transition: font-size .1s;
-
-  &:hover {
-    color: $secondaryBgColor;
-    font-size: 1.1em;
-  }
-}
