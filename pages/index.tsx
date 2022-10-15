@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 
 export default function Home({ title, description, episodes }: any) {
   return (
-    <div>
+    <>
       <Hero description={description} />
       <PageSection title='Latest Episodes'>
         <div id='latest'>
@@ -19,7 +19,7 @@ export default function Home({ title, description, episodes }: any) {
         </div>
         <Button variant='text'>See all episodes</Button>
       </PageSection>
-    </div>
+    </>
   );
 }
 
