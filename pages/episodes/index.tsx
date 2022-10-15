@@ -1,7 +1,17 @@
-import type { NextPage } from 'next';
+import { getApiData } from '../../helpers/api';
 
-const Episodes: NextPage = () => {
-  return <div>BREP</div>;
+type EpisodesProps = {
+  episodes: Array<any>;
 };
 
-export default Episodes;
+export default function Episodes({ episodes }: EpisodesProps) {
+  return <div>BREP</div>;
+}
+
+export async function getStaticProps(context: any) {
+  const episodes = await getApiData(`/episodes`);
+
+  return {
+    props: { episodes },
+  };
+}
