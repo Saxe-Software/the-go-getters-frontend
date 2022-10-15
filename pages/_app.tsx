@@ -18,18 +18,14 @@ const themes = {
   }),
 };
 
-type PageProps = {
-  episodes: any;
-} & AppProps;
-
-function MyApp({ Component, pageProps, episodes }: PageProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   const [darkMode, setDarkMode] = useState<boolean>(false);
 
   return (
     <ThemeProvider theme={darkMode ? themes.dark : themes.light}>
       <Layout darkMode={darkMode} setDarkMode={setDarkMode}>
         <CssBaseline />
-        <Component episodes={episodes} {...pageProps} />
+        <Component {...pageProps} />
       </Layout>
     </ThemeProvider>
   );

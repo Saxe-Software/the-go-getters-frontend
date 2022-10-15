@@ -14,9 +14,9 @@ type EpisodeProps = {
     youtube: string;
     spotify: string;
   };
-  guests: any;
-  additionalResources: any;
-  extraSections: any;
+  guests: Array<any>;
+  additionalResources: Array<any>;
+  extraSections: Array<any>;
 };
 
 export default function Episode(episode: EpisodeProps) {

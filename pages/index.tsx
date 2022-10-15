@@ -27,8 +27,6 @@ export async function getStaticProps(context: any) {
   const homepage = await getApiData(`/homepage`, ['*']);
   const episodes = await getApiData(`/episodes`);
 
-  console.log({ episodes, ...homepage.attributes });
-
   return {
     props: { episodes, ...homepage.attributes },
   };
