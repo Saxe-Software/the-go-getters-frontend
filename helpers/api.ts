@@ -12,3 +12,7 @@ export async function getApiData(path: string, populate: any = []) {
 
   return res.data.data;
 }
+
+export async function postApiData(path: string, body: any) {
+  return await axios.post('/api' + path, body);
+}
