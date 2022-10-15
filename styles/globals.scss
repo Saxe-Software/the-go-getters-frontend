@@ -10,3 +10,41 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
+
+.episodeList {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > div {
+    padding: 0.5em 0.75em;
+    width: 100%;
+
+    a {
+      cursor: pointer;
+      text-decoration: none;
+      color: black;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  @media screen and (min-width: $screen-md) {
+    & > div {
+      width: 50%;
+    }
+  }
+
+  @media screen and (min-width: $screen-xl) {
+    & > div {
+      width: 33.3333%;
+    }
+  }
+
+  @media screen and (min-width: $screen-xxl) {
+    & > div {
+      width: 25%;
+    }
+  }
+}

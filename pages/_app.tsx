@@ -6,6 +6,7 @@ import type { AppProps } from 'next/app';
 import '../styles/globals.scss';
 import '../styles/pages/index.scss';
 import '../styles/pages/episode.scss';
+import '../styles/pages/episodes.scss';
 import '../styles/pages/404.scss';
 import { useState } from 'react';
 

@@ -9,12 +9,12 @@ export default function Home({ title, description, episodes }: any) {
     <>
       <Hero description={description} />
       <PageSection title='Latest Episodes'>
-        <div id='latest'>
+        <div className='episodeList'>
           {episodes
             .reverse()
             .slice(0, 4)
             .map((episode: any) => (
-              <Episode key={episode.attributes.youtubeVideoId} youtubeVideoId={episode.attributes.youtubeVideoId} />
+              <Episode key={episode.id} number={episode.attributes.number} youtubeVideoId={episode.attributes.youtubeVideoId} />
             ))}
         </div>
         <Button variant='text'>See all episodes</Button>

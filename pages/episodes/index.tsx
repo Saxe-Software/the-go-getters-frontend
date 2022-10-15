@@ -1,3 +1,5 @@
+import Episode from '../../components/Episode';
+import PageSection from '../../components/PageSection';
 import { getApiData } from '../../helpers/api';
 
 type EpisodesProps = {
@@ -5,7 +7,19 @@ type EpisodesProps = {
 };
 
 export default function Episodes({ episodes }: EpisodesProps) {
-  return <div>BREP</div>;
+  return (
+    <>
+      <PageSection title='All Episodes'>
+        <div className='episodeList'>
+          {episodes.reverse().map((episode: any) => (
+            <>
+              <Episode key={episode.id} number={episode.attributes.number} title={episode.attributes.title} youtubeVideoId={episode.attributes.youtubeVideoId} />
+            </>
+          ))}
+        </div>
+      </PageSection>
+    </>
+  );
 }
 
 export async function getStaticProps(context: any) {
