@@ -12,9 +12,7 @@ export default function Episodes({ episodes }: EpisodesProps) {
       <PageSection title='All Episodes'>
         <div className='episodeList'>
           {episodes.reverse().map((episode: any) => (
-            <>
-              <Episode key={episode.id} number={episode.attributes.number} title={episode.attributes.title} youtubeVideoId={episode.attributes.youtubeVideoId} />
-            </>
+            <Episode key={episode.id} number={episode.attributes.number} title={`Ep. ${episode.attributes.number} ${episode.attributes.title}`} youtubeVideoId={episode.attributes.youtubeVideoId} />
           ))}
         </div>
       </PageSection>

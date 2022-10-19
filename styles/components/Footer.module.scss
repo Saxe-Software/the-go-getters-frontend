@@ -1,10 +1,17 @@
+@import '../variables.scss';
+
 #footer {
-  padding: 2em 2em;
-  margin: 0 6em;
+  padding: 1em 2em;
+  margin: 0 2em;
   display: flex;
   gap: 3em;
   font-size: .75em;
   border-top: 1px solid darkgrey;
+
+  @media screen and (min-width: $screen-sm) {
+    margin: 0 6em;
+    padding: 2em;
+  }
 
   a {
     color: darkgrey;

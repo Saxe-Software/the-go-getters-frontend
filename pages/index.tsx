@@ -1,23 +1,55 @@
 import Hero from '../components/Hero';
 import PageSection from '../components/PageSection';
-import Episode from '../components/Episode';
 import { getApiData } from '../helpers/api';
-import Button from '@mui/material/Button';
+import { Card, CardContent, Button, CardMedia, Typography, CardActionArea, Link } from '@mui/material';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+
+const carouselBreakpoints = {
+  xxl: {
+    breakpoint: { max: 4000, min: 1200 },
+    items: 4,
+  },
+  xl: {
+    breakpoint: { max: 1200, min: 992 },
+    items: 3,
+  },
+  lg: {
+    breakpoint: { max: 992, min: 768 },
+    items: 2,
+  },
+  md: {
+    breakpoint: { max: 768, min: 0 },
+    items: 1,
+  },
+};
 
 export default function Home({ title, description, episodes }: any) {
   return (
     <>
       <Hero description={description} />
       <PageSection title='Latest Episodes'>
-        <div className='episodeList'>
+        <Carousel partialVisbile responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem'>
           {episodes
             .reverse()
-            .slice(0, 4)
+            .slice(0, 8)
             .map((episode: any) => (
-              <Episode key={episode.id} number={episode.attributes.number} youtubeVideoId={episode.attributes.youtubeVideoId} />
+              <Card key={episode.id} variant='outlined'>
+                <Link href={`/episodes/${episode.attributes.number}`} component={CardActionArea}>
+                  <CardMedia component='img' image={`https://img.youtube.com/vi/${episode.attributes.youtubeVideoId}/maxresdefault.jpg`} alt='Episode thumbnail' />
+                  <CardContent>
+                    <Typography variant='body2'>
+                      <b>{episode.attributes.title}</b>
+                    </Typography>
+                  </CardContent>
+                </Link>
+              </Card>
             ))}
+        </Carousel>
+
+        <div id='carouselFooter'>
+          <Button variant='text'>See all episodes</Button>
         </div>
-        <Button variant='text'>See all episodes</Button>
       </PageSection>
     </>
   );
