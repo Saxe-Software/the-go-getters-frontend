@@ -3,6 +3,7 @@ import { AlertColor } from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState, ChangeEvent } from 'react';
 import { postApiData } from '../helpers/api';
+import PageSection from '../components/PageSection';
 
 interface FormState {
   name: string;
@@ -63,54 +64,58 @@ export default function Contact() {
   };
 
   return (
-    <div id='contact'>
-      <div id='contactInstructions'>
-        <div id='abstractIcon'>
-          <p>........</p>
-          <p>........</p>
-          <p>........</p>
-        </div>
+    <>
+      <PageSection fullHeight>
+        <div id='contact'>
+          <div id='contactInstructions'>
+            <div id='abstractIcon'>
+              <p>........</p>
+              <p>........</p>
+              <p>........</p>
+            </div>
 
-        <h1>Tell us how we are doing</h1>
-        <p>
-          We love feedback! Please take a second to leave your review, or tell us how we can improve. You can fill out this form here, or go to our <a href='https://anchor.fm/thegogetterspodcast'>Anchor</a> page to leave us a voice message.
-        </p>
-      </div>
+            <h1>Tell us how we are doing</h1>
+            <p>
+              We love feedback! Please take a second to leave your review, or tell us how we can improve. You can fill out this form here, or go to our <a href='https://anchor.fm/thegogetterspodcast'>Anchor</a> page to leave us a voice message.
+            </p>
+          </div>
 
-      <Card id='contactForm' variant='outlined'>
-        <CardContent>
-          <FormControl fullWidth margin='normal' variant='outlined'>
-            <TextField required fullWidth label='Name' margin='normal' value={form.name} onChange={handleChange('name')} />
-            <TextField required fullWidth label='Email' margin='normal' value={form.email} onChange={handleChange('email')} />
-            <TextField required fullWidth multiline label='Message' rows={5} margin='normal' value={form.message} onChange={handleChange('message')} />
-            <Collapse in={showAlert}>
-              <Alert
-                action={
-                  <IconButton
-                    aria-label='close'
-                    color='inherit'
-                    size='small'
-                    onClick={() => {
-                      setShowAlert(false);
-                    }}
+          <Card id='contactForm' variant='outlined'>
+            <CardContent>
+              <FormControl fullWidth margin='normal' variant='outlined'>
+                <TextField required fullWidth label='Name' margin='normal' value={form.name} onChange={handleChange('name')} />
+                <TextField required fullWidth label='Email' margin='normal' value={form.email} onChange={handleChange('email')} />
+                <TextField required fullWidth multiline label='Message' rows={5} margin='normal' value={form.message} onChange={handleChange('message')} />
+                <Collapse in={showAlert}>
+                  <Alert
+                    action={
+                      <IconButton
+                        aria-label='close'
+                        color='inherit'
+                        size='small'
+                        onClick={() => {
+                          setShowAlert(false);
+                        }}
+                      >
+                        <CloseIcon />
+                      </IconButton>
+                    }
+                    severity={alertColor}
                   >
-                    <CloseIcon />
-                  </IconButton>
-                }
-                severity={alertColor}
-              >
-                {alertText}
-              </Alert>
-            </Collapse>{' '}
-          </FormControl>
-        </CardContent>
-        <CardActions>
-          <Button variant='contained' onClick={postForm}>
-            Submit
-          </Button>
-          <Button onClick={clearForm}>Clear</Button>
-        </CardActions>
-      </Card>
-    </div>
+                    {alertText}
+                  </Alert>
+                </Collapse>{' '}
+              </FormControl>
+            </CardContent>
+            <CardActions>
+              <Button variant='contained' onClick={postForm}>
+                Submit
+              </Button>
+              <Button onClick={clearForm}>Clear</Button>
+            </CardActions>
+          </Card>
+        </div>
+      </PageSection>
+    </>
   );
 }

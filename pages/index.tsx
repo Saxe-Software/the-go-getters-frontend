@@ -26,7 +26,7 @@ const carouselBreakpoints = {
 
 export default function Home({ title, description, episodes }: any) {
   return (
-    <div id='index'>
+    <>
       <Hero description={description} />
       <PageSection title='Latest Episodes'>
         <Carousel partialVisbile responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem' removeArrowOnDeviceType={['md']}>
@@ -51,7 +51,7 @@ export default function Home({ title, description, episodes }: any) {
           <Button variant='text'>See all episodes</Button>
         </div>
       </PageSection>
-    </div>
+    </>
   );
 }
 

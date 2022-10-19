@@ -1,6 +1,7 @@
 @import '../variables.scss';
 
 #header {
+  z-index: 1000;
   display: flex;
   position: absolute;
   left: 0;
