@@ -1,4 +1,10 @@
+@import '../variables.scss';
+
 #pageSection {
   margin-bottom: 5em;
-  padding : 0 5em;
+  padding : 0 1em;
+
+  @media screen and (min-width: $screen-lg) {
+    padding: 0 4em;
+  }
 }

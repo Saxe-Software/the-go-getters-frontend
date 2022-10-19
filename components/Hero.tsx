@@ -4,7 +4,7 @@ export default function Hero({ description }: any) {
   return (
     <div id={styles.hero}>
       <div id={styles.heroContent}>
-        <div id={styles.subtitle}>Welcome to</div>
+        {/* <div id={styles.subtitle}>Welcome to</div>
 
         <div id={styles.title}>
           The
@@ -15,7 +15,7 @@ export default function Hero({ description }: any) {
           <br />
         </div>
 
-        <div id={styles.description}>{description}</div>
+        <div id={styles.description}>{description}</div> */}
       </div>
     </div>
   );

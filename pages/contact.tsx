@@ -63,7 +63,7 @@ export default function Contact() {
   };
 
   return (
-    <div id='contactFormWrapper'>
+    <div id='contact'>
       <div id='contactInstructions'>
         <div id='abstractIcon'>
           <p>........</p>

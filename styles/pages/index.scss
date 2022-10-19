@@ -1,18 +1,28 @@
-.carouselContainer {
-  .carouselItem {
-    div {
-      height: 100%;
-      margin: 0 0.5em;
+@import '../variables.scss';
 
-      a {
-        text-decoration: none;
-        color: black;
+#index {
+  padding: 2em;
+
+  @media screen and (min-width: $screen-lg) {
+    padding: 0 4em;
+  }
+
+  .carouselContainer {
+    .carouselItem {
+      div {
+        height: 100%;
+        margin: 0 0.5em;
+
+        a {
+          text-decoration: none;
+          color: black;
+        }
       }
     }
   }
-}
 
-#carouselFooter {
-  display: flex;
-  justify-content: flex-end;
+  #carouselFooter {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
