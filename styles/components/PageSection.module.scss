@@ -1,19 +1,31 @@
 @import '../variables.scss';
 
-#pageSection {
+#pageSectionWrapper {
+  padding: 0;
   margin-bottom: 5em;
-  padding : 0 .5em;
+  display: flex;
+  align-items: stretch;
+}
 
-  &.fullHeight {
-    margin-bottom: 0;
-    height: 100%;
-  }
+#pageSection {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding: 8em 0.5em;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
 
   @media screen and (min-width: $screen-sm) {
-    padding: 0 2.5em;
+    padding-left: 2.5em;
+    padding-right: 2.5em;
   }
 
   @media screen and (min-width: $screen-lg) {
-    padding: 0 4em;
+    padding-left: 4em;
+    padding-right: 4em;
   }
 }

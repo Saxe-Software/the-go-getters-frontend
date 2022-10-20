@@ -2,7 +2,7 @@
 
 .carouselContainer {
   .carouselItem {
-    div {
+    & > div {
       height: 100%;
       margin: 0 0.5em;
 

@@ -29,7 +29,7 @@ export default function Home({ title, description, episodes }: any) {
     <>
       <Hero description={description} />
       <PageSection title='Latest Episodes'>
-        <Carousel partialVisbile responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem' removeArrowOnDeviceType={['md']}>
+        <Carousel ssr={true} partialVisible responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem' removeArrowOnDeviceType={['md']}>
           {episodes
             .reverse()
             .slice(0, 8)
@@ -50,6 +50,10 @@ export default function Home({ title, description, episodes }: any) {
         <div id='carouselFooter'>
           <Button variant='text'>See all episodes</Button>
         </div>
+      </PageSection>
+
+      <PageSection minHeight='40vw' backgroundColor='black' backgroundImage='/at-table-with-flag.jpg' backgroundOpacity={0.2} backgroundPosition="50% 25%">
+        <p>stuff</p>
       </PageSection>
     </>
   );
