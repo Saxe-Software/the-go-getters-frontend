@@ -1,0 +1,22 @@
+#about {
+  #imageWrapper {
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      background-color: black;
+      filter: brightness(0.6);
+      max-height: 1200;
+      max-width: 100%;
+      height: auto;
+      width: auto;
+    }
+  }
+
+  #aboutText {
+    padding: 3em 0;
+    max-width: 600px;
+    margin: auto;
+  }
+}

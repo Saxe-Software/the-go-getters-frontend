@@ -1,20 +1,22 @@
 @import '../variables.scss';
 
-.carouselContainer {
-  .carouselItem {
-    & > div {
-      height: 100%;
-      margin: 0 0.5em;
+#index {
+  .carouselContainer {
+    .carouselItem {
+      & > div {
+        height: 100%;
+        margin: 0 0.5em;
 
-      a {
-        text-decoration: none;
-        color: black;
+        a {
+          text-decoration: none;
+          color: black;
+        }
       }
     }
   }
-}
 
-#carouselFooter {
-  display: flex;
-  justify-content: flex-end;
+  #carouselFooter {
+    display: flex;
+    justify-content: flex-end;
+  }
 }

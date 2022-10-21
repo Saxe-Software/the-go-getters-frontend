@@ -41,6 +41,7 @@ export default function Layout({ children, darkMode, setDarkMode }: LayoutProps)
 
         <nav onClick={() => setMenuOpen(false)}>
           <Link href='/'>Home</Link>
+          <Link href='/about'>About us</Link>
           <Link href='/episodes'>Episodes</Link>
           <Link href='/contact'>Contact</Link>
           <Link href=''>Shop (Coming soon!)</Link>

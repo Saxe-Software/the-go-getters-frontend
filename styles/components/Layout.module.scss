@@ -95,6 +95,7 @@
 #mainSocialBar {
   position: absolute;
   display: none;
+  z-index: 5;
 
   @media screen and (min-width: $screen-sm) {
     display: block;

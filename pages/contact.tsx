@@ -65,7 +65,7 @@ export default function Contact() {
 
   return (
     <>
-      <PageSection fullHeight>
+      <PageSection minHeight='100%'>
         <div id='contact'>
           <div id='contactInstructions'>
             <div id='abstractIcon'>

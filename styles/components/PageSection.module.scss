@@ -1,23 +1,22 @@
 @import '../variables.scss';
 
 #pageSectionWrapper {
+  position: relative;
   padding: 0;
   margin-bottom: 5em;
   display: flex;
-  align-items: stretch;
+  align-items: center;
+  justify-content: center;
 }
 
 #pageSection {
-  position: relative;
+  z-index: 3;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  padding: 8em 0.5em;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-
+  padding: 10em 0.5em;
+  background-color: rgba(0, 0, 0, 0);
 
   @media screen and (min-width: $screen-sm) {
     padding-left: 2.5em;
@@ -28,4 +27,14 @@
     padding-left: 4em;
     padding-right: 4em;
   }
+}
+
+#pageSectionBackground {
+  z-index: 2;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }

@@ -51,6 +51,7 @@
 .light {
   a svg {
     color: white;
+    filter: none;
   }
 
   &::after {
@@ -62,6 +63,7 @@
   &:hover {
     svg {
       color: $youtube;
+      filter: drop-shadow(0 0 0.1rem $youtube);
     }
   }
 }
@@ -70,6 +72,7 @@
   &:hover {
     svg {
       color: $spotify;
+      filter: drop-shadow(0 0 0.1rem $spotify);
     }
   }
 }
@@ -78,6 +81,7 @@
   &:hover {
     svg {
       color: $instagram;
+      filter: drop-shadow(0 0 0.1rem $instagram);
     }
   }
 }
@@ -86,6 +90,7 @@
   &:hover {
     svg {
       color: $twitch;
+      filter: drop-shadow(0 0 0.1rem $twitch);
     }
   }
 }
@@ -94,6 +99,7 @@
   &:hover {
     svg {
       color: $anchor;
+      filter: drop-shadow(0 0 0.1rem $anchor);
     }
   }
 }

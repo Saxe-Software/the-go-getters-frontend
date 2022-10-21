@@ -26,7 +26,7 @@ const carouselBreakpoints = {
 
 export default function Home({ title, description, episodes }: any) {
   return (
-    <>
+    <div id='index'>
       <Hero description={description} />
       <PageSection title='Latest Episodes'>
         <Carousel ssr={true} partialVisible responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem' removeArrowOnDeviceType={['md']}>
@@ -52,10 +52,11 @@ export default function Home({ title, description, episodes }: any) {
         </div>
       </PageSection>
 
-      <PageSection minHeight='40vw' backgroundColor='black' backgroundImage='/at-table-with-flag.jpg' backgroundOpacity={0.2} backgroundPosition="50% 25%">
-        <p>stuff</p>
+      <PageSection title="We're more than just a podcast" color='white' minHeight='40vw' backgroundColor='black' backgroundImage='/at-table-with-flag.jpg' backgroundOpacity={0.2} backgroundPosition='50% 25%'>
+        <p>We're building a fitness, gaming, and lifestyle brand</p>
+        <Button></Button>
       </PageSection>
-    </>
+    </div>
   );
 }
 
