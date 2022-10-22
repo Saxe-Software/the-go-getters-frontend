@@ -1,9 +1,10 @@
 import Hero from '../components/Hero';
 import PageSection from '../components/PageSection';
 import { getApiData } from '../helpers/api';
-import { Card, CardContent, Button, CardMedia, Typography, CardActionArea, Link } from '@mui/material';
+import { Button } from '@mui/material';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import Episode from '../components/Episode';
 
 const carouselBreakpoints = {
   xxl: {
@@ -34,16 +35,7 @@ export default function Home({ title, description, episodes }: any) {
             .reverse()
             .slice(0, 8)
             .map((episode: any) => (
-              <Card key={episode.id} variant='outlined'>
-                <Link href={`/episodes/${episode.attributes.number}`} component={CardActionArea}>
-                  <CardMedia component='img' image={`https://img.youtube.com/vi/${episode.attributes.youtubeVideoId}/maxresdefault.jpg`} alt='Episode thumbnail' />
-                  <CardContent>
-                    <Typography variant='body2'>
-                      <b>{episode.attributes.title}</b>
-                    </Typography>
-                  </CardContent>
-                </Link>
-              </Card>
+              <Episode key={episode.id} number={episode.attributes.number} title={`Ep. ${episode.attributes.number} ${episode.attributes.title}`} youtubeVideoId={episode.attributes.youtubeVideoId} />
             ))}
         </Carousel>
 

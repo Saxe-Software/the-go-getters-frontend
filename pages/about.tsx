@@ -1,5 +1,4 @@
 import { Typography } from '@mui/material';
-import Image from 'next/image';
 import PageSection from '../components/PageSection';
 
 export default function About() {

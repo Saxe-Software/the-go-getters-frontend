@@ -1,5 +1,18 @@
 .episodeList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+
   .episodeWrapper {
     padding: 1em;
+    transition: all .15s;
+
+    & > div {
+      height: 100%;
+    }
+
+    &:hover {
+      padding: .2em;
+    }
   }
 }
