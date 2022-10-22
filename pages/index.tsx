@@ -1,10 +1,12 @@
 import Hero from '../components/Hero';
 import PageSection from '../components/PageSection';
 import { getApiData } from '../helpers/api';
-import { Button } from '@mui/material';
+import { Card, CardMedia, CardContent, CardActionArea, Link, Typography, Button } from '@mui/material';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Episode from '../components/Episode';
+import { mdiFormatQuoteClose, mdiFormatQuoteOpen, mdiMenu } from '@mdi/js';
+import Icon from '@mdi/react';
 
 const carouselBreakpoints = {
   xxl: {
@@ -25,10 +27,10 @@ const carouselBreakpoints = {
   },
 };
 
-export default function Home({ title, description, episodes }: any) {
+export default function Home({ title, description, episodes, testimonials }: any) {
   return (
     <div id='index'>
-      <Hero description={description} />
+      {/* <Hero description={description} /> */}
       <PageSection title='Latest Episodes'>
         <Carousel ssr={true} partialVisible responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem' removeArrowOnDeviceType={['md']}>
           {episodes
@@ -45,8 +47,28 @@ export default function Home({ title, description, episodes }: any) {
       </PageSection>
 
       <PageSection title="We're more than just a podcast" color='white' minHeight='40vw' backgroundColor='black' backgroundImage='/at-table-with-flag.jpg' backgroundOpacity={0.2} backgroundPosition='50% 25%'>
-        <p>We're building a fitness, gaming, and lifestyle brand</p>
-        <Button></Button>
+        <p>We're building a lifestyle, fitness, and gaming brand</p>
+        <Button variant='contained'>Fitness</Button>
+      </PageSection>
+
+      <PageSection title='See what the people are saying' maxContentWidth='1600px'>
+        <div id='testimonials'>
+          {testimonials.map((testimonial: any) => (
+            <div className='testimonialWrapper' key={testimonial.id}>
+              <Card variant='outlined'>
+                <div className='testimonialCardContent'>
+                  <p className='text'>
+                    <Icon path={mdiFormatQuoteOpen} size={1.25} />
+                    {testimonial.attributes.text}
+                    <Icon path={mdiFormatQuoteClose} size={1.25} />
+                  </p>
+
+                  <p>- {testimonial.attributes.name}</p>
+                </div>
+              </Card>
+            </div>
+          ))}
+        </div>
       </PageSection>
     </div>
   );
@@ -55,8 +77,9 @@ export default function Home({ title, description, episodes }: any) {
 export async function getStaticProps(context: any) {
   const homepage = await getApiData(`/homepage`, ['*']);
   const episodes = await getApiData(`/episodes`);
+  const testimonials = await getApiData('/testimonials');
 
   return {
-    props: { episodes, ...homepage.attributes },
+    props: { episodes, ...homepage.attributes, testimonials },
   };
 }

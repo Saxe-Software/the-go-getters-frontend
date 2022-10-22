@@ -19,4 +19,48 @@
     display: flex;
     justify-content: flex-end;
   }
+
+  #testimonials {
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: $screen-lg) {
+      flex-direction: row;
+
+      .testimonialWrapper {
+        width: 33%;
+        padding: .5vw;
+      }
+    }
+
+    .testimonialWrapper {
+      width: 100%;
+      padding: .5em 1vw;
+      align-content: stretch;
+      margin-bottom: 1em;
+
+      & > div {
+        height: 100%;
+      }
+
+      .testimonialCardContent {
+        height: 100%;
+        padding: 0 0.5em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: center;
+        line-height: 2em;
+        font-size: 1.2em;
+
+        p.text {
+          margin-bottom: 4em;
+        }
+
+        svg {
+          color: navy;
+        }
+      }
+    }
+  }
 }
