@@ -28,7 +28,7 @@ const carouselBreakpoints = {
   },
 };
 
-export default function Home({ title, description, episodes, testimonials }: any) {
+export default function Home({ episodes, testimonials }: any) {
   return (
     <>
       <Head>

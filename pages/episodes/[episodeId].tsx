@@ -24,7 +24,9 @@ export default function Episode(episode: EpisodeProps) {
   return (
     <>
       <Head>
-        <title>Ep. #{episode.number} - {episode.title} | The Go Getters</title>
+        <title>
+          Ep. #{episode.number} - {episode.title} | The Go Getters
+        </title>
       </Head>
 
       <div id='episode'>
@@ -126,6 +128,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export async function getStaticProps(context: any) {
   const episode = await getApiData(`/episodes/${context.params.episodeId}`, ['links', 'guests.links']);
   const episodeExtra = await getApiData(`/episode-extra`, ['extraSections.links']);
+  const episodeCount = (await getApiData(`/episodes`)).length;
+
+  if (episodeCount === episode.attributes.number) episode.attributes.mostRecent = true;
 
   return {
     props: { extraSections: episodeExtra.attributes.extraSections, ...episode.attributes },
