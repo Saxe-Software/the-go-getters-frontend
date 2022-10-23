@@ -53,7 +53,7 @@ export default function Home({ title, description, episodes, testimonials }: any
         </PageSection>
 
         <PageSection title="We're more than just a podcast" color='white' minHeight='40vw' backgroundColor='black' backgroundImage='/at-table-with-flag.jpg' backgroundOpacity={0.2} backgroundPosition='50% 25%'>
-          <p>We're building a lifestyle, fitness, and gaming brand</p>
+          <p>We&apos;re building a lifestyle, fitness, and gaming brand</p>
           <Button variant='contained'>Fitness</Button>
         </PageSection>
 

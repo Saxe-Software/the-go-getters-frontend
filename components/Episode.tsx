@@ -1,4 +1,4 @@
-import { useTheme } from '@emotion/react';
+import { useTheme } from '@mui/material/styles';
 import { Card, CardMedia, CardContent, CardActionArea, Link, Typography } from '@mui/material';
 import styles from '../styles/components/Episode.module.scss';
 
