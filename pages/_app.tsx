@@ -11,6 +11,7 @@ import '../styles/pages/episodes.scss';
 import '../styles/pages/contact.scss';
 import '../styles/pages/404.scss';
 import { useState } from 'react';
+import Head from 'next/head';
 
 const themes = {
   light: createTheme({
@@ -49,12 +50,19 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [darkMode, setDarkMode] = useState<boolean>(false);
 
   return (
-    <ThemeProvider theme={darkMode ? themes.dark : themes.light}>
-      <Layout darkMode={darkMode} setDarkMode={setDarkMode}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </Layout>
-    </ThemeProvider>
+    <>
+      <Head>
+        <meta property='og:title' content='The Go Getters' key='title' />
+        <link rel='icon' type='image/x-icon' href='/favicon.ico' />
+      </Head>
+
+      <ThemeProvider theme={darkMode ? themes.dark : themes.light}>
+        <Layout darkMode={darkMode} setDarkMode={setDarkMode}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+    </>
   );
 }
 

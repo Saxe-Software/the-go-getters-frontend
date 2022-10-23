@@ -32,8 +32,7 @@ export default function Home({ title, description, episodes, testimonials }: any
   return (
     <>
       <Head>
-        <title>The Go Getters</title>
-        <link rel='icon' type='image/x-icon' href='/favicon.ico' />
+        <title>Home | The Go Getters</title>
       </Head>
 
       <div id='index'>

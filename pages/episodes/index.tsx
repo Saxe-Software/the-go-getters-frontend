@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Episode from '../../components/Episode';
 import PageSection from '../../components/PageSection';
 import { getApiData } from '../../helpers/api';
@@ -9,6 +10,10 @@ type EpisodesProps = {
 export default function Episodes({ episodes }: EpisodesProps) {
   return (
     <>
+      <Head>
+        <title>Episodes | The Go Getters</title>
+      </Head>
+
       <PageSection title='All Episodes'>
         <div className='episodeList'>
           {episodes.reverse().map((episode: any) => (

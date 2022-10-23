@@ -4,6 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useState, ChangeEvent } from 'react';
 import { postApiData } from '../helpers/api';
 import PageSection from '../components/PageSection';
+import Head from 'next/head';
 
 interface FormState {
   name: string;
@@ -65,6 +66,10 @@ export default function Contact() {
 
   return (
     <>
+      <Head>
+        <title>Contact | The Go Getters</title>
+      </Head>
+
       <PageSection minHeight='100%'>
         <div id='contact'>
           <div id='contactInstructions'>
