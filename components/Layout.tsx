@@ -37,17 +37,25 @@ export default function Layout({ children, darkMode, setDarkMode }: LayoutProps)
 
           <div className={styles.themeWrapper}>
             <DarkModeSwitch sx={{ m: 1 }} onChange={() => setDarkMode(!darkMode)} />
-            {/* <Switch checked={darkMode}  color='default' /> */}
-            {/* <Icon path={darkMode ? mdiWeatherNight : mdiWeatherSunny} size={1}></Icon> */}
           </div>
         </div>
 
-        <nav onClick={() => setMenuOpen(false)}>
-          <Link href='/'>Home</Link>
-          <Link href='/about'>About us</Link>
-          <Link href='/episodes'>Episodes</Link>
-          <Link href='/contact'>Contact</Link>
-          <Link href=''>Shop (Coming soon!)</Link>
+        <nav>
+          <Link href='/'>
+            <a onClick={() => setMenuOpen(false)}>Home</a>
+          </Link>
+          <Link href='/about'>
+            <a onClick={() => setMenuOpen(false)}>About Us</a>
+          </Link>
+          <Link href='/episodes'>
+            <a onClick={() => setMenuOpen(false)}>Episodes</a>
+          </Link>
+          <Link href='/contact'>
+            <a onClick={() => setMenuOpen(false)}>Contact</a>
+          </Link>
+          <Link href=''>
+            <a>Shop (Coming soon!)</a>
+          </Link>
         </nav>
 
         <SocialBar light />

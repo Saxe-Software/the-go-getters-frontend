@@ -53,6 +53,9 @@ export default function SocialBar({ fixed, light }: SocialBarProps) {
             background-color: white;
           }
 
+          .${styles.socialBar} > div > a {
+            filter: drop-shadow(0 0 0.05rem ${theme.palette.background.paper});
+          }
           `,
         }}
       ></style>
