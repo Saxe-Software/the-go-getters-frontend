@@ -1,6 +1,6 @@
 import styles from '../styles/components/Layout.module.scss';
 import { PropsWithChildren, useState } from 'react';
-import { mdiMenu, mdiClose, mdiWeatherNight, mdiWeatherSunny } from '@mdi/js';
+import { mdiMenu, mdiClose } from '@mdi/js';
 import Link from 'next/link';
 import Icon from '@mdi/react';
 import Header from '../components/Header';
@@ -36,7 +36,7 @@ export default function Layout({ children, darkMode, setDarkMode }: LayoutProps)
           </div>
 
           <div className={styles.themeWrapper}>
-            <DarkModeSwitch sx={{ m: 1 }} onChange={() => setDarkMode(!darkMode)} />
+            <DarkModeSwitch sx={{ m: 1 }} onChange={() => setDarkMode(!darkMode)} checked={darkMode} />
           </div>
         </div>
 
@@ -62,7 +62,7 @@ export default function Layout({ children, darkMode, setDarkMode }: LayoutProps)
       </div>
 
       <div id={styles.siteContent}>
-        <Header setMenuOpen={setMenuOpen} />
+        <Header setMenuOpen={setMenuOpen} darkMode={darkMode} setDarkMode={setDarkMode} />
         <main>{children}</main>
         <Footer />
 

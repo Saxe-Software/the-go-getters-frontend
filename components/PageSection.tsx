@@ -1,4 +1,3 @@
-import { ClassNames } from '@emotion/react';
 import { Typography } from '@mui/material';
 import { PropsWithChildren } from 'react';
 import styles from '../styles/components/PageSection.module.scss';

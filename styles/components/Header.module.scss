@@ -1,19 +1,15 @@
 @import '../variables.scss';
 
 #header {
+  width: 100%;
   z-index: 1000;
   display: flex;
-  position: absolute;
+  position: relative;
   left: 0;
   top: 0;
-  width: 100%;
-  padding: 3em 2em;
+  padding: 2em;
   justify-content: space-between;
   align-items: center;
-
-  @media screen and (min-width: $screen-md) {
-    display: none;
-  }
 }
 
 #menuLink {
@@ -23,5 +19,11 @@
 
   @media screen and (min-width: $screen-md) {
     display: none;
+  }
+}
+
+#logo {
+  img {
+    height: min(15vw, 100px);
   }
 }
