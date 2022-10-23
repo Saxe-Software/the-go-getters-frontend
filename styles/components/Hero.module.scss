@@ -1,19 +1,15 @@
 @import '../variables.scss';
 
 #hero {
-  //width: 100vw;
-  height: 100vh;
-  padding: 0 2em;
+  padding: 5em 2em;
   display: flex;
   align-items: center;
   margin-bottom: 8em;
-  background-color: rgb(238, 238, 238);
 
   @media screen and (min-width: $screen-md) {
     flex-direction: row;
-    padding: 0 8em;
+    padding: 10em 8em;
     margin-bottom: 0;
-    min-height: 95vh;
   }
 }
 
