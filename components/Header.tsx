@@ -3,6 +3,7 @@ import { mdiMenu } from '@mdi/js';
 import Icon from '@mdi/react';
 import { useTheme } from '@mui/material/styles';
 import DarkModeSwitch from './DarkModeSwitch';
+import Link from 'next/link';
 
 type HeaderProps = {
   setMenuOpen: Function;
@@ -16,7 +17,9 @@ export default function Header({ setMenuOpen, darkMode, setDarkMode }: HeaderPro
   return (
     <header id={styles.header}>
       <div id={styles.logo}>
-        <img src={`/logo_${theme.palette.mode}.png`} alt='Go Getters Logo' />
+        <Link href='/'>
+          <img src={`/logo_${theme.palette.mode}.png`} alt='Go Getters Logo' />
+        </Link>
       </div>
 
       <div>

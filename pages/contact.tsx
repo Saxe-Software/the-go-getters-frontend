@@ -1,4 +1,4 @@
-import { Card, CardContent, TextField, CardActions, FormControl, Button, Alert, Collapse, IconButton } from '@mui/material';
+import { Card, CardContent, TextField, CardActions, FormControl, Button, Alert, Collapse, IconButton, Typography } from '@mui/material';
 import { AlertColor } from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState, ChangeEvent } from 'react';
@@ -73,16 +73,12 @@ export default function Contact() {
       <PageSection minHeight='100%'>
         <div id='contact'>
           <div id='contactInstructions'>
-            <div id='abstractIcon'>
-              <p>........</p>
-              <p>........</p>
-              <p>........</p>
-            </div>
-
-            <h1>Tell us how we are doing</h1>
-            <p>
+            <Typography sx={{ mb: 3 }} variant='h3' component='h2'>
+              Tell us how we are doing
+            </Typography>
+            <Typography variant='body1'>
               We love feedback! Please take a second to leave your review, or tell us how we can improve. You can fill out this form here, or go to our <a href='https://anchor.fm/thegogetterspodcast'>Anchor</a> page to leave us a voice message.
-            </p>
+            </Typography>
           </div>
 
           <Card id='contactForm' variant='outlined'>
