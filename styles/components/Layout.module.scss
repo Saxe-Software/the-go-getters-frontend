@@ -44,15 +44,17 @@
     a {
       font-size: 1.5em;
       text-decoration: none;
-      transition: all 0.1s;
+      transition: all 0.15s;
       padding: 1em 0.5em;
       border-bottom: 1px solid white;
       width: 100%;
       text-align: center;
       white-space: nowrap;
+      color: inherit;
 
       &:hover {
         font-size: 1.65em;
+        font-weight: bold;
       }
     }
   }

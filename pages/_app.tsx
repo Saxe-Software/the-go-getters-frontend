@@ -13,11 +13,35 @@ import '../styles/pages/404.scss';
 import { useState } from 'react';
 
 const themes = {
-  light: createTheme({}),
+  light: createTheme({
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#001587',
+      },
+      secondary: {
+        main: '#f50057',
+      },
+      menu: {
+        main: '#001041',
+        contrastText: '#fff',
+      },
+      text: {
+        primary: '#202020',
+      },
+    },
+  }),
   dark: createTheme({
     palette: {
-      mode: 'dark'
-    }
+      mode: 'dark',
+      menu: {
+        main: '#202020',
+        contrastText: '#fff',
+      },
+      text: {
+        primary: '#fff',
+      },
+    },
   }),
 };
 

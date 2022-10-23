@@ -3,7 +3,7 @@
 .socialBar {
   position: absolute;
   width: 2.5em;
-  right: .5vw;
+  right: 0.5vw;
   bottom: 0;
   display: flex;
   flex-direction: column;
@@ -21,7 +21,6 @@
     width: 2px;
     height: 100px;
     margin: 0.5em auto 0;
-    background-color: black;
   }
 
   a {
@@ -29,11 +28,11 @@
     width: 2.5em;
     display: flex;
     justify-content: center;
+    color: inherit;
 
     svg {
       display: flex;
       justify-content: center;
-      color: black;
       transition: all 0.1s;
       width: 2em;
       height: 2em;

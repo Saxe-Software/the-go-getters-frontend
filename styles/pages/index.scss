@@ -2,14 +2,18 @@
 
 #index {
   .carouselContainer {
+    padding: 1em 0;
+
     .carouselItem {
+      margin: 0.5em;
+
       & > div {
         height: 100%;
-        margin: 0 0.5em;
+
+        z-index: 4;
 
         a {
           text-decoration: none;
-          color: black;
         }
       }
     }
@@ -29,13 +33,13 @@
 
       .testimonialWrapper {
         width: 33%;
-        padding: .5vw;
+        padding: 0.5vw;
       }
     }
 
     .testimonialWrapper {
       width: 100%;
-      padding: .5em 1vw;
+      padding: 0.5em 1vw;
       align-content: stretch;
       margin-bottom: 1em;
 
