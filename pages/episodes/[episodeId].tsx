@@ -3,6 +3,7 @@ import { mdiArrowLeft, mdiArrowRight } from '@mdi/js';
 import Icon from '@mdi/react';
 import { getApiData } from '../../helpers/api';
 import Head from 'next/head';
+import { Link } from '@mui/material';
 
 type EpisodeProps = {
   id: number;
@@ -37,26 +38,26 @@ export default function Episode(episode: EpisodeProps) {
           <div>
             <div>
               <span>Listen on </span>
-              <a href={episode.links.youtube}>Youtube</a>
+              <Link href={episode.links.youtube}>Youtube</Link>
               <span> | </span>
-              <a href={episode.links.spotify}>Spotify</a>
+              <Link href={episode.links.spotify}>Spotify</Link>
             </div>
 
             <iframe className='video' title='Youtube player' sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation' src={`https://youtube.com/embed/${episode.youtubeVideoId}?autoplay=0`}></iframe>
 
             <div id='other-episodes'>
               <div>
-                <a href={`/episodes/${episode.number - 1}`} style={{ display: episode.number === 1 ? 'none' : 'flex' }}>
+                <Link href={`/episodes/${episode.number - 1}`} style={{ display: episode.number === 1 ? 'none' : 'flex' }}>
                   <Icon path={mdiArrowLeft} title='Previous' color='black' />
                   Previous episode
-                </a>
+                </Link>
               </div>
 
               <div>
-                <a href={`/episodes/${episode.number + 1}`} style={{ display: episode.mostRecent ? 'none' : 'flex' }}>
+                <Link href={`/episodes/${episode.number + 1}`} style={{ display: episode.mostRecent ? 'none' : 'flex' }}>
                   Next episode
                   <Icon path={mdiArrowRight} title='Previous' color='black' />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -75,7 +76,7 @@ export default function Episode(episode: EpisodeProps) {
 
               {guest.links.map((link: any) => (
                 <div key={link.url}>
-                  <a href={link.url}>{link.label}</a>
+                  <Link href={link.url}>{link.label}</Link>
                 </div>
               ))}
             </div>
@@ -87,7 +88,7 @@ export default function Episode(episode: EpisodeProps) {
 
               {section.links.map((link: any) => (
                 <div key={link.url}>
-                  <a href={link.url}>{link.label}</a>
+                  <Link href={link.url}>{link.label}</Link>
                 </div>
               ))}
             </div>

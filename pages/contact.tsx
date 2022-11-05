@@ -1,4 +1,4 @@
-import { Card, CardContent, TextField, CardActions, FormControl, Button, Alert, Collapse, IconButton, Typography } from '@mui/material';
+import { Card, CardContent, TextField, CardActions, FormControl, Button, Link, Alert, Collapse, IconButton, Typography } from '@mui/material';
 import { AlertColor } from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState, ChangeEvent } from 'react';
@@ -77,7 +77,7 @@ export default function Contact() {
               Tell us how we are doing
             </Typography>
             <Typography variant='body1'>
-              We love feedback! Please take a second to leave your review, or tell us how we can improve. You can fill out this form here, or go to our <a href='https://anchor.fm/thegogetterspodcast'>Anchor</a> page to leave us a voice message.
+              We love feedback! Please take a second to leave your review, or tell us how we can improve. You can fill out this form here, or go to our <Link href='https://anchor.fm/thegogetterspodcast'>Anchor</Link> page to leave us a voice message.
             </Typography>
           </div>
 
