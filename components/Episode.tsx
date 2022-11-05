@@ -16,7 +16,7 @@ export default function PageSection({ number, title, youtubeVideoId }: EpisodePr
       <div className={styles.linkWrapper}>
         <Link href={`/episodes/${number}`} component={CardActionArea}>
           <CardMedia component='img' image={`https://img.youtube.com/vi/${youtubeVideoId}/maxresdefault.jpg`} alt='Episode thumbnail' />
-          <CardContent style={{ color: theme.palette.text.primary }}>
+          <CardContent sx={{ color: theme.palette.text.primary }}>
             <Typography variant='body2'>
               <b>{title}</b>
             </Typography>
