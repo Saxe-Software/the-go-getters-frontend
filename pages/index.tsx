@@ -36,7 +36,7 @@ export default function Home({ episodes, description, testimonials }: any) {
       </Head>
 
       <div id='index'>
-        {/* <Hero description={description} /> */}
+        <Hero description={description} />
         <PageSection title='Latest Episodes'>
           <Carousel ssr={true} partialVisible responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem' removeArrowOnDeviceType={['md']}>
             {episodes
@@ -52,7 +52,7 @@ export default function Home({ episodes, description, testimonials }: any) {
           </div>
         </PageSection>
 
-        <PageSection title="We're more than just a podcast" color='white' minHeight='40vw' backgroundColor='black' backgroundImage='/at-table-with-flag.jpg' backgroundOpacity={0.2} backgroundPosition='50% 25%'>
+        <PageSection title="We're more than just a podcast" color='white' minHeight='40vw' backgroundColor='black' backgroundImage='/red-bg.jpg' backgroundOpacity={0.2} backgroundPosition='50% 25%'>
           <p>We&apos;re building a lifestyle, fitness, and gaming brand</p>
           <Button variant='contained'>Fitness</Button>
         </PageSection>

@@ -1,5 +1,5 @@
 import { useTheme } from '@mui/material/styles';
-import { Card, CardMedia, CardContent, CardActionArea, Link, Typography } from '@mui/material';
+import { Card, CardMedia, CardContent, CardActionArea, Link, Typography, Skeleton } from '@mui/material';
 import styles from '../styles/components/Episode.module.scss';
 
 type EpisodeProps = {
@@ -16,7 +16,7 @@ export default function PageSection({ number, title, youtubeVideoId }: EpisodePr
       <div className={styles.linkWrapper}>
         <Link href={`/episodes/${number}`} component={CardActionArea}>
           <CardMedia component='img' image={`https://img.youtube.com/vi/${youtubeVideoId}/maxresdefault.jpg`} alt='Episode thumbnail' />
-          <CardContent style={{color: theme.palette.text.primary}}>
+          <CardContent style={{ color: theme.palette.text.primary }}>
             <Typography variant='body2'>
               <b>{title}</b>
             </Typography>

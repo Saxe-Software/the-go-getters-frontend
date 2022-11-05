@@ -16,8 +16,7 @@ type EpisodeProps = {
     spotify: string;
   };
   guests: Array<any>;
-  additionalResources: Array<any>;
-  extraSections: Array<any>;
+  additionalSections: Array<any>;
 };
 
 export default function Episode(episode: EpisodeProps) {
@@ -82,19 +81,7 @@ export default function Episode(episode: EpisodeProps) {
             </div>
           ))}
 
-          {!!episode.additionalResources?.length && (
-            <div className='section'>
-              <h2>Additional Resources</h2>
-
-              {episode.additionalResources.map((link: any) => (
-                <div key={link.url}>
-                  <a href={link.url}>{link.label}</a>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {episode.extraSections.map((section: any) => (
+          {episode.additionalSections.map((section: any) => (
             <div key={section.title} className='section'>
               <h2>{section.title}</h2>
 
@@ -126,7 +113,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export async function getStaticProps(context: any) {
-  const episode = await getApiData(`/episodes/${context.params.episodeId}`, ['links', 'guests.links']);
+  const episode = await getApiData(`/episodes/${context.params.episodeId}`, ['links', 'guests.links', 'additionalSections.links']);
   const episodeExtra = await getApiData(`/episode-extra`, ['extraSections.links']);
   const episodeCount = (await getApiData(`/episodes`)).length;
 

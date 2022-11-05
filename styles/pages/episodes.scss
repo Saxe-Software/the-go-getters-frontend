@@ -5,14 +5,14 @@
 
   .episodeWrapper {
     padding: 1em;
-    transition: all .15s;
+    transition: all 0.15s;
 
     & > div {
       height: 100%;
     }
 
     &:hover {
-      padding: .2em;
+      padding: 0.2em;
     }
   }
 }
