@@ -1,4 +1,26 @@
-.episodeList {
+#filters {
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1em;
+
+  #search {
+    display: flex;
+    gap: 1em;
+
+    div {
+      display: flex;
+      gap: 0.25em;
+    }
+  }
+
+  #sort {
+    justify-self: flex-end;
+  }
+}
+
+#episodes {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;

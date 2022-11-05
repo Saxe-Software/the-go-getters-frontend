@@ -54,7 +54,6 @@ export default function Home({ episodes, description, testimonials }: any) {
 
         <PageSection title="We're more than just a podcast" color='white' minHeight='40vw' backgroundColor='black' backgroundImage='/red-bg.jpg' backgroundOpacity={0.2} backgroundPosition='50% 25%'>
           <p>We&apos;re building a lifestyle, fitness, and gaming brand</p>
-          <Button variant='contained'>Fitness</Button>
         </PageSection>
 
         <PageSection title='See what the people are saying' maxContentWidth='1600px'>
