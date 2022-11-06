@@ -2,33 +2,31 @@ import Head from 'next/head';
 import Episode from '../../components/Episode';
 import PageSection from '../../components/PageSection';
 import { getApiData } from '../../helpers/api';
-import { CircularProgress, Container, TextField, Button, Alert, Select, MenuItem } from '@mui/material';
-import { useState } from 'react';
+import { TextField, Button, Alert, Select, MenuItem } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { caseInsensitiveIncludes } from '../../helpers';
 
 type EpisodesProps = {
   episodes: Array<any>;
 };
 
 export default function Episodes({ episodes }: EpisodesProps) {
-  const [filterPhrase, setFilterPhrase] = useState<string>('');
-  const [filteredEpisodes, setFilteredEpisodes] = useState<Array<any>>(episodes.reverse());
+  const [filteredAndSortedEpisodes, setFilteredAndSortedEpisodes] = useState<Array<any>>([...episodes].reverse());
+  const [searchInputVal, setSearchInputVal] = useState<string>('');
+  const [searchVal, setSearchVal] = useState<string>('');
   const [sort, setSort] = useState<string>('newest');
 
-  const stripped = (str: string) => {
-    [',', '"', "'", '.', '!', '?', ' '].forEach(char => str.replace(char, ''));
+  useEffect(() => {
+    let filtered;
 
-    return str.toUpperCase();
-  };
+    filtered = !searchVal
+      ? [...episodes]
+      : [...episodes].filter(episode => {
+          return caseInsensitiveIncludes(episode.attributes.title, searchVal);
+        });
 
-  const filterEpisodes = () => {
-    if (!filterPhrase) setFilteredEpisodes(episodes);
-
-    setFilteredEpisodes(
-      episodes.filter(episode => {
-        return stripped(episode.attributes.title).includes(stripped(filterPhrase));
-      })
-    );
-  };
+    setFilteredAndSortedEpisodes(sort === 'newest' ? [...filtered].reverse() : filtered);
+  }, [episodes, searchVal, sort]);
 
   return (
     <>
@@ -39,18 +37,18 @@ export default function Episodes({ episodes }: EpisodesProps) {
       <PageSection title='All Episodes'>
         <div id='filters'>
           <div id='search'>
-            <TextField size='small' value={filterPhrase} onChange={e => setFilterPhrase(e.target.value)} />
+            <TextField size='small' value={searchInputVal} onChange={e => setSearchInputVal(e.target.value)} />
 
             <div>
-              <Button variant='contained' disableElevation onClick={() => filterEpisodes()}>
+              <Button variant='contained' disableElevation onClick={() => setSearchVal(searchInputVal)}>
                 Filter
               </Button>
               <Button
                 variant='outlined'
                 disableElevation
                 onClick={() => {
-                  setFilterPhrase('');
-                  setFilteredEpisodes(episodes);
+                  setSearchInputVal('');
+                  setSearchVal('');
                 }}
               >
                 Clear
@@ -63,7 +61,6 @@ export default function Episodes({ episodes }: EpisodesProps) {
               value={sort}
               onChange={e => {
                 setSort(e.target.value);
-                setFilteredEpisodes(filteredEpisodes.reverse());
               }}
               size='small'
             >
@@ -73,14 +70,14 @@ export default function Episodes({ episodes }: EpisodesProps) {
           </div>
         </div>
 
-        {!filteredEpisodes.length && (
+        {!filteredAndSortedEpisodes.length && (
           <Alert sx={{ margin: '1em' }} variant='outlined' severity='info'>
             Sorry, no episodes match your search
           </Alert>
         )}
 
         <div id='episodes' className='episodeList'>
-          {filteredEpisodes.map((episode: any) => (
+          {filteredAndSortedEpisodes.map((episode: any) => (
             <div key={episode.id} className='episodeWrapper'>
               <Episode number={episode.attributes.number} title={`Ep. ${episode.attributes.number} ${episode.attributes.title}`} youtubeVideoId={episode.attributes.youtubeVideoId} />
             </div>
