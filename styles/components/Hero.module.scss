@@ -5,35 +5,123 @@
   display: flex;
   align-items: center;
   margin-bottom: 8em;
+  flex-direction: column;
+  max-width: 1750px;
+  margin: auto;
 
   @media screen and (min-width: $screen-md) {
     flex-direction: row;
-    padding: 10em 8em;
     margin-bottom: 0;
   }
 }
 
 #heroContent {
-  width: 40%;
+  text-align: center;
+  width: 100%;
+  padding: 0 2em;
+
+  @media screen and (min-width: $screen-md) {
+    text-align: left;
+  }
+}
+
+#heroImages {
+  position: relative;
+  display: flex;
+  max-width: 750px;
+
+  div {
+    width: 50%;
+    position: relative;
+    left: 8%;
+
+    img {
+      width: 100%;
+    }
+
+    &:last-of-type {
+      left: -8%;
+      top: 3em;
+    }
+  }
+
+  @media screen and (min-width: $screen-md) {
+    div {
+      left: 6%;
+
+      &:last-of-type {
+        left: -6%;
+        top: 5em;
+      }
+    }
+  }
 }
 
 #subtitle {
-  font-size: 2em;
+  font-size: 1em;
+
+  @media screen and (min-width: $screen-lg) {
+    font-size: 1.2em;
+  }
 }
 
 #title {
-  font-size: 10em;
+  font-size: 4em;
   font-weight: 900;
   line-height: 0.75em;
-  margin-bottom: 50px;
+  margin-bottom: 15px;
+
+  @media screen and (min-width: $screen-lg) {
+    font-size: 6em;
+    margin-bottom: 50px;
+  }
+
+  @media screen and (min-width: $screen-xl) {
+    font-size: 8em;
+  }
 }
 
 #description {
-  font-size: 1.25em;
-  margin-bottom: 4em;
+  font-size: 1em;
+  margin-bottom: .5em;
+
+  @media screen and (min-width: $screen-lg) {
+    font-size: 1.2em;
+  }
 }
 
 #cta {
-  font-size: 2em;
+  margin-bottom: 4em;
+  word-wrap: none;
 
+  @media screen and (min-width: $screen-lg) {
+    font-size: 1.5em;
+  }
+}
+
+#abstractIcon {
+  display: none;
+  position: absolute;
+  letter-spacing: 0.2em;
+  line-height: 0.4em;
+  top: -0.25em;
+  right: -0.15em;
+  margin: 0;
+
+  @media screen and (min-width: $screen-md) {
+    display: block;
+    font-size: 5em;
+  }
+
+  @media screen and (min-width: $screen-lg) {
+    font-size: 7em;
+  }
+
+  @media screen and (min-width: $screen-xl) {
+    font-size: 9em;
+  }
+
+  @media screen and (min-width: $screen-xxl) {
+    font-size: 12em;
+  }
 }

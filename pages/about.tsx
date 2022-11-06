@@ -1,8 +1,9 @@
-import { Typography } from '@mui/material';
+import { Link, Typography } from '@mui/material';
 import PageSection from '../components/PageSection';
 import Head from 'next/head';
+import { getApiData } from '../helpers/api';
 
-export default function About() {
+export default function About({ sections }: any) {
   return (
     <>
       <Head>
@@ -18,19 +19,27 @@ export default function About() {
             <img src='/at-table-with-flag.jpg' alt='The Go Getters' />
           </div>
 
-          <PageSection title='The Go Getters' maxContentWidth='1000px' className='aboutPageSection'>
-            <p>WORDS WORDS WORDS WORDS</p>
-          </PageSection>
+          {sections.map((section: any) => (
+            <PageSection key={section.id} title={section.title} maxContentWidth='1000px' className='aboutPageSection'>
+              <p>{section.text}</p>
 
-          <PageSection title='Kevin Kaskey' maxContentWidth='1000px' className='aboutPageSection'>
-            <p>WORDS WORDS WORDS WORDS</p>
-          </PageSection>
-
-          <PageSection title='Darrian Tyson' maxContentWidth='1000px' className='aboutPageSection'>
-            <p>WORDS WORDS WORDS WORDS</p>
-          </PageSection>
+              {section.links.map((link: any) => (
+                <div key={link.url}>
+                  <Link href={link.url}>{link.label}</Link>
+                </div>
+              ))}
+            </PageSection>
+          ))}
         </PageSection>
       </div>
     </>
   );
+}
+
+export async function getStaticProps(context: any) {
+  const aboutPage = await getApiData(`/about-page`, ['sections.links']);
+
+  return {
+    props: { ...aboutPage.attributes },
+  };
 }

@@ -81,7 +81,7 @@ export default function Home({ episodes, description, testimonials }: any) {
 }
 
 export async function getStaticProps(context: any) {
-  const homepage = await getApiData(`/homepage`, ['*']);
+  const homepage = await getApiData(`/home-page`, ['*']);
   const episodes = await getApiData(`/episodes`);
   const testimonials = await getApiData('/testimonials');
 
