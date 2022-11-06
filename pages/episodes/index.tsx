@@ -3,7 +3,7 @@ import Episode from '../../components/Episode';
 import PageSection from '../../components/PageSection';
 import { getApiData } from '../../helpers/api';
 import { TextField, Button, Alert, Select, MenuItem } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { KeyboardEvent, useEffect, useState } from 'react';
 import { caseInsensitiveIncludes } from '../../helpers';
 
 type EpisodesProps = {
@@ -16,14 +16,21 @@ export default function Episodes({ episodes }: EpisodesProps) {
   const [searchVal, setSearchVal] = useState<string>('');
   const [sort, setSort] = useState<string>('newest');
 
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      setSearchVal(searchInputVal);
+    }
+  };
+
   useEffect(() => {
+    let allEpisodes = [...episodes];
     let filtered;
 
-    filtered = !searchVal
-      ? [...episodes]
-      : [...episodes].filter(episode => {
-          return caseInsensitiveIncludes(episode.attributes.title, searchVal);
-        });
+    if (!searchVal) filtered = allEpisodes;
+    else
+      filtered = allEpisodes.filter(episode => {
+        return caseInsensitiveIncludes(episode.attributes.title, searchVal);
+      });
 
     setFilteredAndSortedEpisodes(sort === 'newest' ? [...filtered].reverse() : filtered);
   }, [episodes, searchVal, sort]);
@@ -37,7 +44,7 @@ export default function Episodes({ episodes }: EpisodesProps) {
       <PageSection title='All Episodes'>
         <div id='filters'>
           <div id='search'>
-            <TextField size='small' value={searchInputVal} onChange={e => setSearchInputVal(e.target.value)} />
+            <TextField size='small' value={searchInputVal} onChange={e => setSearchInputVal(e.target.value)} onKeyUp={handleKeyPress} />
 
             <div>
               <Button variant='contained' disableElevation onClick={() => setSearchVal(searchInputVal)}>
