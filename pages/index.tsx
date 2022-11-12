@@ -43,12 +43,14 @@ export default function Home({ episodes, description, testimonials }: any) {
               .reverse()
               .slice(0, 8)
               .map((episode: any) => (
-                <Episode key={episode.id} number={episode.attributes.number} title={`Ep. ${episode.attributes.number} ${episode.attributes.title}`} youtubeVideoId={episode.attributes.youtubeVideoId} />
+                <Episode key={episode.id} id={episode.id} title={`Ep. ${episode.id} ${episode.attributes.title}`} youtubeVideoId={episode.attributes.youtubeVideoId} />
               ))}
           </Carousel>
 
           <div id='carouselFooter'>
-            <Button variant='text'>See all episodes</Button>
+            <Button variant='text' href='/episodes'>
+              See all episodes
+            </Button>
           </div>
         </PageSection>
 
@@ -86,6 +88,6 @@ export async function getStaticProps(context: any) {
   const testimonials = await getApiData('/testimonials');
 
   return {
-    props: { episodes, ...homepage.attributes, testimonials },
+    props: { episodes: episodes.sort((a: any, b: any) => (a.id > b.id ? 1 : -1)), ...homepage.attributes, testimonials },
   };
 }

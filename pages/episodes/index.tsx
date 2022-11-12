@@ -86,7 +86,7 @@ export default function Episodes({ episodes }: EpisodesProps) {
         <div id='episodes' className='episodeList'>
           {filteredAndSortedEpisodes.map((episode: any) => (
             <div key={episode.id} className='episodeWrapper'>
-              <Episode number={episode.attributes.number} title={`Ep. ${episode.attributes.number} ${episode.attributes.title}`} youtubeVideoId={episode.attributes.youtubeVideoId} />
+              <Episode id={episode.id} title={`Ep. ${episode.id} ${episode.attributes.title}`} youtubeVideoId={episode.attributes.youtubeVideoId} />
             </div>
           ))}
         </div>
@@ -99,6 +99,6 @@ export async function getStaticProps(context: any) {
   const episodes = await getApiData(`/episodes`);
 
   return {
-    props: { episodes },
+    props: { episodes: episodes.sort((a: any, b: any) => (a.id > b.id ? 1 : -1)) },
   };
 }
