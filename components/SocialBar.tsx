@@ -13,7 +13,7 @@ export default function SocialBar({ fixed, light }: SocialBarProps) {
 
   return (
     <>
-      <div className={`${styles.socialBar} ${light ? styles.light : ''}`} style={fixed ? { position: 'fixed' } : {}}>
+      <div className={`${styles.socialBar} ${light ? styles.light : ''}`} style={{ position: fixed ? 'fixed' : 'absolute' }}>
         <div>
           <a id={styles.spotify} href='https://open.spotify.com/show/1WDdy89IajoQ8qjguLPl94'>
             <Icon path={mdiSpotify} title='Spotify' />
