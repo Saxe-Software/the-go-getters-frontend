@@ -99,6 +99,6 @@ export async function getStaticProps(context: any) {
   const episodes = await getApiData(`/episodes`);
 
   return {
-    props: { episodes: episodes.sort((a: any, b: any) => (a.id > b.id ? 1 : -1)) },
+    props: { episodes: episodes.sort((a: any, b: any) => (a.attributes.number > b.attributes.number ? 1 : -1)) },
   };
 }

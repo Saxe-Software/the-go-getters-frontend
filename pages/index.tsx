@@ -40,7 +40,7 @@ export default function Home({ episodes, description, testimonials }: any) {
         <PageSection title='Latest Episodes'>
           <Carousel ssr={true} partialVisible responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem' removeArrowOnDeviceType={['md']}>
             {episodes
-              .reverse()
+              .sort((a: any, b: any) => (a.attributes.number > b.attributes.number ? -1 : 1))
               .slice(0, 8)
               .map((episode: any) => (
                 <Episode key={episode.id} number={episode.attributes.number} title={`Ep. ${episode.attributes.number} ${episode.attributes.title}`} youtubeVideoId={episode.attributes.youtubeVideoId} />
@@ -88,6 +88,6 @@ export async function getStaticProps(context: any) {
   const testimonials = await getApiData('/testimonials');
 
   return {
-    props: { episodes: episodes.sort((a: any, b: any) => (a.id > b.id ? 1 : -1)), ...homepage.attributes, testimonials },
+    props: { episodes: episodes.sort((a: any, b: any) => (a.attributes.number > b.attributes.number ? 1 : -1)), ...homepage.attributes, testimonials },
   };
 }
