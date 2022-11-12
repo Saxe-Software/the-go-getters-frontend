@@ -19,6 +19,7 @@ type EpisodeProps = {
   };
   guests: Array<any>;
   additionalSections: Array<any>;
+  defaultSections: Array<any>;
 };
 
 export default function Episode(episode: EpisodeProps) {
@@ -64,7 +65,7 @@ export default function Episode(episode: EpisodeProps) {
               </div>
             </div>
 
-            {!!episode.description?.length && (
+            {episode.description?.length && (
               <div className='section'>
                 <h2>Description</h2>
                 <p>{episode.description}</p>
@@ -84,9 +85,10 @@ export default function Episode(episode: EpisodeProps) {
               </div>
             ))}
 
-            {episode.additionalSections.map((section: any) => (
+            {[...episode.additionalSections, ...episode.defaultSections].map((section: any) => (
               <div key={section.title} className='section'>
                 <h2>{section.title}</h2>
+                <p>{section.text}</p>
 
                 {section.links.map((link: any) => (
                   <div key={link.url}>
@@ -118,12 +120,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export async function getStaticProps(context: any) {
   const episode = await getApiData(`/episodes/${context.params.episodeId}`, ['links', 'guests.links', 'additionalSections.links']);
-  const episodeExtra = await getApiData(`/episode-extra`, ['extraSections.links']);
+  const defaultSections = await getApiData(`/default-section`, ['sections.links']);
   const episodeCount = (await getApiData(`/episodes`)).length;
 
   if (episodeCount === episode.attributes.number) episode.attributes.mostRecent = true;
 
+  console.log(defaultSections);
+
   return {
-    props: { extraSections: episodeExtra.attributes.extraSections, ...episode.attributes },
+    props: { defaultSections: defaultSections.attributes.sections, ...episode.attributes },
   };
 }
