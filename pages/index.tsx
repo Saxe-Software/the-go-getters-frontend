@@ -88,6 +88,6 @@ export async function getStaticProps(context: any) {
   const testimonials = await getApiData('/testimonials');
 
   return {
-    props: { episodes: episodes.sort((a: any, b: any) => (a.id > b.id ? 1 : -1)), ...homepage.attributes, testimonials },
+    props: { episodes: episodes.sort((a: any, b: any) => (a.attributes.number > b.attributes.number ? 1 : -1)), ...homepage.attributes, testimonials },
   };
 }
