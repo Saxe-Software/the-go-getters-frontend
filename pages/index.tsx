@@ -43,7 +43,7 @@ export default function Home({ episodes, description, testimonials }: any) {
               .reverse()
               .slice(0, 8)
               .map((episode: any) => (
-                <Episode key={episode.id} id={episode.id} title={`Ep. ${episode.id} ${episode.attributes.title}`} youtubeVideoId={episode.attributes.youtubeVideoId} />
+                <Episode key={episode.id} number={episode.attributes.number} title={`Ep. ${episode.attributes.number} ${episode.attributes.title}`} youtubeVideoId={episode.attributes.youtubeVideoId} />
               ))}
           </Carousel>
 

@@ -7,6 +7,7 @@ export async function getApiData(path: string, populate: any = []) {
     },
     params: {
       populate: populate.toString(),
+      'pagination[pageSize]': 10000
     },
   });
 

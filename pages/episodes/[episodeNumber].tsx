@@ -7,7 +7,7 @@ import { Link } from '@mui/material';
 import PageSection from '../../components/PageSection';
 
 type EpisodeProps = {
-  id: number;
+  number: number;
   title: string;
   description: string;
   youtubeVideoId: string;
@@ -26,7 +26,7 @@ export default function Episode(episode: EpisodeProps) {
     <>
       <Head>
         <title>
-          Ep. #{episode.id} - {episode.title} | The Go Getters
+          Ep. #{episode.number} - {episode.title} | The Go Getters
         </title>
       </Head>
 
@@ -34,7 +34,7 @@ export default function Episode(episode: EpisodeProps) {
         <div id='episode'>
           <div id='episode-body'>
             <h1>
-              Episode #{episode.id}: {episode.title}
+              Episode #{episode.number}: {episode.title}
             </h1>
 
             <div>
@@ -49,14 +49,14 @@ export default function Episode(episode: EpisodeProps) {
 
               <div id='other-episodes'>
                 <div>
-                  <Link href={`/episodes/${episode.id - 1}`} style={{ display: episode.id === 1 ? 'none' : 'flex' }}>
+                  <Link href={`/episodes/${episode.number - 1}`} style={{ display: episode.number === 1 ? 'none' : 'flex' }}>
                     <Icon path={mdiArrowLeft} title='Previous' color='black' />
                     Previous episode
                   </Link>
                 </div>
 
                 <div>
-                  <Link href={`/episodes/${episode.id + 1}`} style={{ display: episode.mostRecent ? 'none' : 'flex' }}>
+                  <Link href={`/episodes/${episode.number + 1}`} style={{ display: episode.mostRecent ? 'none' : 'flex' }}>
                     Next episode
                     <Icon path={mdiArrowRight} title='Previous' color='black' />
                   </Link>
@@ -64,7 +64,7 @@ export default function Episode(episode: EpisodeProps) {
               </div>
             </div>
 
-            {episode.description?.length && (
+            {!!episode.description?.length && (
               <div className='section'>
                 <h2>Description</h2>
                 <p>{episode.description}</p>
@@ -87,7 +87,6 @@ export default function Episode(episode: EpisodeProps) {
             {[...episode.additionalSections, ...episode.defaultSections].map((section: any) => (
               <div key={section.id} className='section'>
                 <h2>{section.title}</h2>
-                <p>{section.text}</p>
 
                 {section.links.map((link: any) => (
                   <div key={link.url}>
@@ -106,10 +105,11 @@ export default function Episode(episode: EpisodeProps) {
 export const getStaticPaths: GetStaticPaths = async () => {
   const episodes = await getApiData(`/episodes`);
 
-  const paths = episodes.map((episode: { id: number }) => {
+  const paths = episodes.map((episode: any) => {
     return {
       params: {
         episodeId: episode.id.toString(),
+        episodeNumber: episode.attributes.number.toString()
       },
     };
   });
@@ -118,13 +118,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export async function getStaticProps(context: any) {
-  const episode = await getApiData(`/episodes/${context.params.episodeId}`, ['links', 'guests.links', 'additionalSections.links']);
-  const defaultSections = await getApiData(`/default-section`, ['sections.links']);
+  const episode = (await getApiData(`/episodes?filters[number][$eq]=${context.params.episodeNumber}`, ['links', 'guests.links', 'additionalSections.links']))[0];
+  const episodeExtra = await getApiData(`/default-section`, ['sections.links']);
   const episodeCount = (await getApiData(`/episodes`)).length;
 
-  if (episodeCount === episode.id) episode.attributes.mostRecent = true;
+  if (episodeCount === episode.attributes.number) episode.attributes.mostRecent = true;
 
   return {
-    props: { id: episode.id, defaultSections: defaultSections.attributes.sections, ...episode.attributes },
+    props: { defaultSections: episodeExtra.attributes.sections, ...episode.attributes },
   };
 }
