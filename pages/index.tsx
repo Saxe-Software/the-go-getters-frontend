@@ -8,6 +8,7 @@ import Episode from '../components/Episode';
 import { mdiFormatQuoteClose, mdiFormatQuoteOpen, mdiMenu } from '@mdi/js';
 import Icon from '@mdi/react';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 
 const carouselBreakpoints = {
   xxl: {
@@ -38,10 +39,10 @@ export default function Home({ episodes, description, testimonials }: any) {
       <div id='index'>
         <Hero description={description} />
         <PageSection title='Latest Episodes'>
-          <Carousel ssr={true} partialVisible responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem' removeArrowOnDeviceType={['md']}>
+          <Carousel ssr={true} responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem' removeArrowOnDeviceType={['md']}>
             {episodes
               .sort((a: any, b: any) => (a.attributes.number > b.attributes.number ? -1 : 1))
-              .slice(0, 8)
+              .slice(0, 10)
               .map((episode: any) => (
                 <Episode key={episode.id} number={episode.attributes.number} title={`Ep. ${episode.attributes.number} ${episode.attributes.title}`} youtubeVideoId={episode.attributes.youtubeVideoId} />
               ))}
