@@ -43,6 +43,7 @@ export default function Partners() {
     setForm({
       name: '',
       email: '',
+      business: '',
       message: '',
     });
   };
@@ -55,13 +56,12 @@ export default function Partners() {
     if (!form.message) return alertUser('warning', 'Message is required');
 
     try {
-      await postApiData('/user-contacts', form);
-      alertUser('success', 'Success! Thanks for your feedback!');
+      await postApiData('/sponsor-requests', form);
+      alertUser('success', 'Success! Thanks for your interest in partnering with us!');
+      clearForm();
     } catch (err: any) {
       alertUser('error', err.response.data);
     }
-
-    clearForm();
   };
 
   return (

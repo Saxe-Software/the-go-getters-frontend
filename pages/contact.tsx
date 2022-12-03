@@ -54,11 +54,10 @@ export default function Contact() {
     try {
       await postApiData('/user-contacts', form);
       alertUser('success', 'Success! Thanks for your feedback!');
+      clearForm();
     } catch (err: any) {
       alertUser('error', err.response.data);
     }
-
-    clearForm();
   };
 
   return (
