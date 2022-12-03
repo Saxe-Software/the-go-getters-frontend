@@ -50,6 +50,9 @@ export default function Layout({ children, darkMode, setDarkMode }: LayoutProps)
           <Link href='/episodes'>
             <a onClick={() => setMenuOpen(false)}>Episodes</a>
           </Link>
+          <Link href='/partners'>
+            <a onClick={() => setMenuOpen(false)}>Partner with us</a>
+          </Link>
           <Link href='/contact'>
             <a onClick={() => setMenuOpen(false)}>Contact</a>
           </Link>

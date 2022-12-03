@@ -9,6 +9,7 @@ import '../styles/pages/about.scss';
 import '../styles/pages/episode.scss';
 import '../styles/pages/episodes.scss';
 import '../styles/pages/contact.scss';
+import '../styles/pages/partners.scss';
 import '../styles/pages/404.scss';
 import { useState } from 'react';
 import Head from 'next/head';
