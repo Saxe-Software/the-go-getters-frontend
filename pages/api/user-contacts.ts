@@ -3,13 +3,13 @@ import axios from 'axios';
 export default async function handler(req: any, res: any) {
   try {
     if (req.method !== 'POST') {
-      res.status(405);
-      throw new Error('Invalid request method.');
+      res.status(405).send('Invalid request method.');
+      return;
     }
 
     if (!req.body.name || !req.body.email || !req.body.message) {
-      res.status(400);
-      throw new Error('Name, email, and message are all required.');
+      res.status(400).send('Name, email, and message are all required.');
+      return;
     }
 
     const response = await axios.post(
@@ -25,11 +25,8 @@ export default async function handler(req: any, res: any) {
     );
 
     res.status(response.status).json(response.data.data);
+    return;
   } catch (err: any) {
-    if (!res.status) res.status(500);
-
-    res.json(err);
+    res.status(500).send(err.message);
   }
-
-  res.send();
 }
