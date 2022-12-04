@@ -5,10 +5,9 @@ import { Card, Button } from '@mui/material';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Episode from '../components/Episode';
-import { mdiFormatQuoteClose, mdiFormatQuoteOpen, mdiMenu } from '@mdi/js';
+import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from '@mdi/js';
 import Icon from '@mdi/react';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
 
 const carouselBreakpoints = {
   xxl: {

@@ -1,4 +1,4 @@
-import { Card, CardContent, TextField, CardActions, FormControl, Button, Link, Alert, Collapse, IconButton, Typography } from '@mui/material';
+import { Card, CardContent, TextField, CardActions, FormControl, Button, Alert, Collapse, IconButton, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { AlertColor } from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
@@ -11,10 +11,11 @@ import Head from 'next/head';
 interface FormState {
   name: string;
   email: string;
+  business: String;
   message: string;
 }
 
-export default function Contact() {
+export default function Partners() {
   const [alertText, setAlertText] = useState('');
   const [alertColor, setAlertColor] = useState<AlertColor>('success');
   const [showAlert, setShowAlert] = useState(false);
@@ -22,6 +23,7 @@ export default function Contact() {
   const [form, setForm] = useState<any>({
     name: '',
     email: '',
+    business: '',
     message: '',
   });
 
@@ -44,6 +46,7 @@ export default function Contact() {
     setForm({
       name: '',
       email: '',
+      business: '',
       message: '',
     });
     setFormLoading(false);
@@ -54,12 +57,12 @@ export default function Contact() {
     if (!form.name) return alertUser('warning', 'Name is required');
     if (!form.email) return alertUser('warning', 'Email is required');
     if (!validateEmail(form.email)) return alertUser('warning', 'Email is invalid');
+    if (!form.business) return alertUser('warning', 'Business is required');
     if (!form.message) return alertUser('warning', 'Message is required');
 
     try {
-
-      await postApiData('/user-contacts', form);
-      alertUser('success', 'Success! Thanks for your feedback!');
+      await postApiData('/sponsor-requests', form);
+      alertUser('success', 'Success! Thanks for your interest in partnering with us!');
       clearForm();
     } catch (err: any) {
       alertUser('error', err.response.data);
@@ -71,17 +74,17 @@ export default function Contact() {
   return (
     <>
       <Head>
-        <title>Contact | The Go Getters</title>
+        <title>Partners | The Go Getters</title>
       </Head>
 
       <PageSection minHeight='100%'>
-        <div id='contact'>
+        <div id='partners'>
           <div id='contactInstructions'>
             <Typography sx={{ mb: 3 }} variant='h3' component='h2'>
-              Tell us how we are doing
+              Why partner with us?
             </Typography>
             <Typography variant='body1'>
-              We love feedback! Please take a second to leave your review, or tell us how we can improve. You can fill out this form here, or go to our <Link href='https://anchor.fm/thegogetterspodcast'>Anchor</Link> page to leave us a voice message.
+              We feature incredible guests from all walks of life. Increase your business&apos;s reach and get exposed to a community of Go-Getters by partnering with us! Drop us a line and let&apos;s get the conversation started.
             </Typography>
           </div>
 
@@ -90,6 +93,7 @@ export default function Contact() {
               <FormControl fullWidth margin='normal' variant='outlined'>
                 <TextField required fullWidth label='Name' margin='normal' value={form.name} onChange={handleChange('name')} />
                 <TextField required fullWidth label='Email' margin='normal' value={form.email} onChange={handleChange('email')} />
+                <TextField required fullWidth label='Business' margin='normal' value={form.business} onChange={handleChange('business')} />
                 <TextField required fullWidth multiline label='Message' rows={5} margin='normal' value={form.message} onChange={handleChange('message')} />
                 <Collapse in={showAlert}>
                   <Alert
@@ -111,6 +115,7 @@ export default function Contact() {
                   </Alert>
                 </Collapse>{' '}
               </FormControl>
+              <Typography style={{ fontSize: '.75em' }}>Please leave a detailed message on how you would like to partner with us, and we will get back to you as soon as we can!</Typography>
             </CardContent>
             <CardActions>
               <LoadingButton loading={formLoading} variant='contained' onClick={postForm}>

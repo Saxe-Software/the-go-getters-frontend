@@ -1,4 +1,5 @@
 import Layout from '../components/Layout';
+import ErrorBoundary from '../components/ErrorBoundary';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import type { AppProps } from 'next/app';
@@ -9,6 +10,7 @@ import '../styles/pages/about.scss';
 import '../styles/pages/episode.scss';
 import '../styles/pages/episodes.scss';
 import '../styles/pages/contact.scss';
+import '../styles/pages/partners.scss';
 import '../styles/pages/404.scss';
 import { useState } from 'react';
 import Head from 'next/head';
@@ -58,8 +60,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <ThemeProvider theme={darkMode ? themes.dark : themes.light}>
         <Layout darkMode={darkMode} setDarkMode={setDarkMode}>
-          <CssBaseline />
-          <Component {...pageProps} />
+          <ErrorBoundary>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ErrorBoundary>
         </Layout>
       </ThemeProvider>
     </>

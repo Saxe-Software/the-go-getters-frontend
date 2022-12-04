@@ -1,0 +1,21 @@
+@import '../variables.scss';
+
+#partners {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4em;
+  height: 100%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 2em 1em;
+
+  @media screen and (min-width: $screen-lg) {
+    padding: 0 4em;
+  }
+
+  #contactForm {
+    width: 100%;
+  }
+}
