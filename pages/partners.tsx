@@ -31,6 +31,7 @@ export default function Partners() {
     setAlertColor(color);
     setAlertText(text);
     setShowAlert(true);
+    setFormLoading(false);
 
     setTimeout(() => {
       setShowAlert(false);
@@ -48,6 +49,7 @@ export default function Partners() {
       business: '',
       message: '',
     });
+    setFormLoading(false);
   };
 
   const postForm = async () => {

@@ -29,6 +29,7 @@ export default function Contact() {
     setAlertColor(color);
     setAlertText(text);
     setShowAlert(true);
+    setFormLoading(false);
 
     setTimeout(() => {
       setShowAlert(false);
@@ -45,6 +46,7 @@ export default function Contact() {
       email: '',
       message: '',
     });
+    setFormLoading(false);
   };
 
   const postForm = async () => {
