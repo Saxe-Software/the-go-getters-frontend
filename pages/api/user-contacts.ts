@@ -1,17 +1,17 @@
 import axios from 'axios';
 
 export default async function handler(req: any, res: any) {
-  if (req.method !== 'POST') {
-    res.status(405).send();
-    return;
-  }
-
-  if (!req.body.name || !req.body.email || !req.body.message) {
-    res.status(400).send('Name, email, and message are all required.');
-    return;
-  }
-
   try {
+    if (req.method !== 'POST') {
+      res.status(405);
+      throw new Error('Invalid request method.');
+    }
+
+    if (!req.body.name || !req.body.email || !req.body.message) {
+      res.status(400);
+      throw new Error('Name, email, and message are all required.');
+    }
+
     const response = await axios.post(
       `${process.env.API_ROOT}/user-contacts`,
       {
@@ -24,8 +24,12 @@ export default async function handler(req: any, res: any) {
       }
     );
 
-    res.status(200).json(response.data.data).send();
+    if (response.status === 200) res.status(200).json(response.data.data);
   } catch (err: any) {
-    res.status(500).json(err?.response?.data?.error?.message).send();
+    if (!res.status) res.status(500);
+
+    res.json(err);
   }
+
+  res.send();
 }
