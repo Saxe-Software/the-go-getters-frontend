@@ -1,4 +1,5 @@
 import { Card, CardContent, TextField, CardActions, FormControl, Button, Link, Alert, Collapse, IconButton, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { AlertColor } from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState, ChangeEvent } from 'react';
@@ -17,6 +18,7 @@ export default function Contact() {
   const [alertText, setAlertText] = useState('');
   const [alertColor, setAlertColor] = useState<AlertColor>('success');
   const [showAlert, setShowAlert] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
   const [form, setForm] = useState<any>({
     name: '',
     email: '',
@@ -46,18 +48,22 @@ export default function Contact() {
   };
 
   const postForm = async () => {
+    setFormLoading(true);
     if (!form.name) return alertUser('warning', 'Name is required');
     if (!form.email) return alertUser('warning', 'Email is required');
     if (!validateEmail(form.email)) return alertUser('warning', 'Email is invalid');
     if (!form.message) return alertUser('warning', 'Message is required');
 
     try {
+
       await postApiData('/user-contacts', form);
       alertUser('success', 'Success! Thanks for your feedback!');
       clearForm();
     } catch (err: any) {
       alertUser('error', err.response.data);
     }
+
+    setFormLoading(false);
   };
 
   return (
@@ -105,9 +111,10 @@ export default function Contact() {
               </FormControl>
             </CardContent>
             <CardActions>
-              <Button variant='contained' onClick={postForm}>
+              <LoadingButton loading={formLoading} variant='contained' onClick={postForm}>
                 Submit
-              </Button>
+              </LoadingButton>
+
               <Button onClick={clearForm}>Clear</Button>
             </CardActions>
           </Card>

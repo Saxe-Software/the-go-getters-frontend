@@ -1,4 +1,5 @@
 import { Card, CardContent, TextField, CardActions, FormControl, Button, Alert, Collapse, IconButton, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { AlertColor } from '@mui/material/Alert';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState, ChangeEvent } from 'react';
@@ -18,6 +19,7 @@ export default function Partners() {
   const [alertText, setAlertText] = useState('');
   const [alertColor, setAlertColor] = useState<AlertColor>('success');
   const [showAlert, setShowAlert] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
   const [form, setForm] = useState<any>({
     name: '',
     email: '',
@@ -49,6 +51,7 @@ export default function Partners() {
   };
 
   const postForm = async () => {
+    setFormLoading(true);
     if (!form.name) return alertUser('warning', 'Name is required');
     if (!form.email) return alertUser('warning', 'Email is required');
     if (!validateEmail(form.email)) return alertUser('warning', 'Email is invalid');
@@ -62,6 +65,8 @@ export default function Partners() {
     } catch (err: any) {
       alertUser('error', err.response.data);
     }
+
+    setFormLoading(false);
   };
 
   return (
@@ -108,14 +113,13 @@ export default function Partners() {
                   </Alert>
                 </Collapse>{' '}
               </FormControl>
-              <Typography style={{ fontSize: '.75em' }}>
-                Please leave a detailed message on how you would like to partner with us, and we will get back to you as soon as we can!
-              </Typography>
+              <Typography style={{ fontSize: '.75em' }}>Please leave a detailed message on how you would like to partner with us, and we will get back to you as soon as we can!</Typography>
             </CardContent>
             <CardActions>
-              <Button variant='contained' onClick={postForm}>
+              <LoadingButton loading={formLoading} variant='contained' onClick={postForm}>
                 Submit
-              </Button>
+              </LoadingButton>
+
               <Button onClick={clearForm}>Clear</Button>
             </CardActions>
           </Card>
