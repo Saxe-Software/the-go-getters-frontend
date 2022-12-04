@@ -24,7 +24,7 @@ export default async function handler(req: any, res: any) {
       }
     );
 
-    if (response.status === 200) res.status(200).json(response.data.data);
+    res.status(response.status).json(response.data.data);
   } catch (err: any) {
     if (!res.status) res.status(500);
 
