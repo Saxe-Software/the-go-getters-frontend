@@ -1,4 +1,5 @@
 import Layout from '../components/Layout';
+import ErrorBoundary from '../components/ErrorBoundary';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import type { AppProps } from 'next/app';
@@ -59,8 +60,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <ThemeProvider theme={darkMode ? themes.dark : themes.light}>
         <Layout darkMode={darkMode} setDarkMode={setDarkMode}>
-          <CssBaseline />
-          <Component {...pageProps} />
+          <ErrorBoundary>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ErrorBoundary>
         </Layout>
       </ThemeProvider>
     </>
