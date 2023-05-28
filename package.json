@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:function": "netlify functions:invoke $1 --port 9999 --debug"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -16,15 +17,22 @@
     "@mui/icons-material": "^5.10.9",
     "@mui/lab": "^5.0.0-alpha.110",
     "@mui/material": "^5.10.16",
+    "@netlify/functions": "^1.6.0",
     "axios": "^0.27.2",
+    "lodash": "^4.17.21",
     "next": "12.3.0",
+    "nodemailer": "^6.9.2",
+    "qs": "^6.11.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-intersection-observer": "^9.4.0",
     "react-multi-carousel": "^2.8.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.195",
     "@types/node": "18.7.16",
+    "@types/nodemailer": "^6.4.8",
+    "@types/qs": "^6.9.7",
     "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",
     "eslint": "8.23.0",

@@ -1,130 +1,90 @@
-import type { GetStaticPaths, NextPage } from 'next';
+import type { GetStaticPaths } from 'next';
 import { mdiArrowLeft, mdiArrowRight } from '@mdi/js';
 import Icon from '@mdi/react';
-import { getApiData } from '../../helpers/api';
 import Head from 'next/head';
 import { Link } from '@mui/material';
 import PageSection from '../../components/PageSection';
+import youtubeVideos from '../../data/youtube-videos.json';
+import spotifyEpisodes from '../../data/spotify-episodes.json';
+import { formatYoutubeDescription } from '../../helpers';
+import YoutubeVideo from '../../types/YoutubeVideo';
 
-type EpisodeProps = {
-  number: number;
-  title: string;
-  description: string;
-  youtubeVideoId: string;
-  mostRecent: boolean;
-  links: {
-    youtube: string;
-    spotify: string;
-  };
-  guests: Array<any>;
-  additionalSections: Array<any>;
-  defaultSections: Array<any>;
-};
+export default function Episode(episode: YoutubeVideo) {
+    return (
+        <>
+            <Head>
+                <title>Ep. {episode.snippet.title} | The Go Getters</title>
+            </Head>
 
-export default function Episode(episode: EpisodeProps) {
-  return (
-    <>
-      <Head>
-        <title>
-          Ep. #{episode.number} - {episode.title} | The Go Getters
-        </title>
-      </Head>
+            <PageSection>
+                <div id='episode'>
+                    <div id='episode-body'>
+                        <h1>Episode {episode.snippet.title}</h1>
 
-      <PageSection>
-        <div id='episode'>
-          <div id='episode-body'>
-            <h1>
-              Episode #{episode.number}: {episode.title}
-            </h1>
+                        <div>
+                            <div>
+                                <span>Listen on </span>
+                                <Link href={`https://www.youtube.com/watch?v=${episode.snippet.resourceId.videoId}`}>Youtube</Link>
+                                <span> | </span>
+                                <Link href={spotifyEpisodes.find(spotifyEpisode => spotifyEpisode.episodeNumber === episode.episodeNumber)?.external_urls.spotify}>Spotify</Link>
+                            </div>
 
-            <div>
-              <div>
-                <span>Listen on </span>
-                <Link href={episode.links.youtube}>Youtube</Link>
-                <span> | </span>
-                <Link href={episode.links.spotify}>Spotify</Link>
-              </div>
+                            <iframe
+                                className='video'
+                                title='Youtube player'
+                                sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation'
+                                src={`https://youtube.com/embed/${episode.snippet.resourceId.videoId}?autoplay=0`}
+                            ></iframe>
 
-              <iframe className='video' title='Youtube player' sandbox='allow-same-origin allow-forms allow-popups allow-scripts allow-presentation' src={`https://youtube.com/embed/${episode.youtubeVideoId}?autoplay=0`}></iframe>
+                            <div id='other-episodes'>
+                                <div>
+                                    <Link href={`/episodes/${episode.episodeNumber - 1}`} style={{ display: episode.episodeNumber === 1 ? 'none' : 'flex' }}>
+                                        <Icon path={mdiArrowLeft} title='Previous' color='black' />
+                                        Previous episode
+                                    </Link>
+                                </div>
 
-              <div id='other-episodes'>
-                <div>
-                  <Link href={`/episodes/${episode.number - 1}`} style={{ display: episode.number === 1 ? 'none' : 'flex' }}>
-                    <Icon path={mdiArrowLeft} title='Previous' color='black' />
-                    Previous episode
-                  </Link>
+                                <div>
+                                    <Link href={`/episodes/${episode.episodeNumber + 1}`} style={{ display: episode.episodeNumber == youtubeVideos.length ? 'none' : 'flex' }}>
+                                        Next episode
+                                        <Icon path={mdiArrowRight} title='Previous' color='black' />
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+
+                        {!!episode.snippet.description?.length && (
+                            <div className='section'>
+                                <h2>Description</h2>
+                                <p dangerouslySetInnerHTML={{ __html: formatYoutubeDescription(episode.snippet.description) }}></p>
+                            </div>
+                        )}
+                    </div>
                 </div>
-
-                <div>
-                  <Link href={`/episodes/${episode.number + 1}`} style={{ display: episode.mostRecent ? 'none' : 'flex' }}>
-                    Next episode
-                    <Icon path={mdiArrowRight} title='Previous' color='black' />
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {!!episode.description?.length && (
-              <div className='section'>
-                <h2>Description</h2>
-                <p>{episode.description}</p>
-              </div>
-            )}
-
-            {episode.guests.map((guest: any) => (
-              <div key={guest.id} className='section'>
-                <h2>{guest.name}</h2>
-                <p>{guest.description}</p>
-
-                {guest.links.map((link: any) => (
-                  <div key={link.url}>
-                    <Link href={link.url}>{link.label}</Link>
-                  </div>
-                ))}
-              </div>
-            ))}
-
-            {[...episode.additionalSections, ...episode.defaultSections].map((section: any) => (
-              <div key={section.id} className='section'>
-                <h2>{section.title}</h2>
-
-                {section.links.map((link: any) => (
-                  <div key={link.url}>
-                    <Link href={link.url}>{link.label}</Link>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-      </PageSection>
-    </>
-  );
+            </PageSection>
+        </>
+    );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const episodes = await getApiData(`/episodes`);
+    const paths = youtubeVideos
+        .filter(episode => !!episode.episodeNumber)
+        .map(episode => {
+            return {
+                params: {
+                    episodeId: episode.id.toString(),
+                    episodeNumber: episode.episodeNumber?.toString(),
+                },
+            };
+        });
 
-  const paths = episodes.map((episode: any) => {
-    return {
-      params: {
-        episodeId: episode.id.toString(),
-        episodeNumber: episode.attributes.number.toString()
-      },
-    };
-  });
-
-  return { paths, fallback: false };
+    return { paths, fallback: false };
 };
 
 export async function getStaticProps(context: any) {
-  const episode = (await getApiData(`/episodes?filters[number][$eq]=${context.params.episodeNumber}`, ['links', 'guests.links', 'additionalSections.links']))[0];
-  const episodeExtra = await getApiData(`/default-section`, ['sections.links']);
-  const episodeCount = (await getApiData(`/episodes`)).length;
+    const episode = youtubeVideos.find(video => video.episodeNumber == context.params.episodeNumber);
 
-  if (episodeCount === episode.attributes.number) episode.attributes.mostRecent = true;
-
-  return {
-    props: { defaultSections: episodeExtra.attributes.sections, ...episode.attributes },
-  };
+    return {
+        props: { ...episode },
+    };
 }

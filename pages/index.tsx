@@ -1,6 +1,5 @@
 import Hero from '../components/Hero';
 import PageSection from '../components/PageSection';
-import { getApiData } from '../helpers/api';
 import { Card, Button } from '@mui/material';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -8,86 +7,83 @@ import Episode from '../components/Episode';
 import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from '@mdi/js';
 import Icon from '@mdi/react';
 import Head from 'next/head';
+import episodes from '../data/youtube-videos.json';
 
 const carouselBreakpoints = {
-  xxl: {
-    breakpoint: { max: 4000, min: 1200 },
-    items: 4,
-  },
-  xl: {
-    breakpoint: { max: 1200, min: 992 },
-    items: 3,
-  },
-  lg: {
-    breakpoint: { max: 992, min: 768 },
-    items: 2,
-  },
-  md: {
-    breakpoint: { max: 768, min: 0 },
-    items: 1,
-  },
+    xxl: {
+        breakpoint: { max: 4000, min: 1200 },
+        items: 4,
+    },
+    xl: {
+        breakpoint: { max: 1200, min: 992 },
+        items: 3,
+    },
+    lg: {
+        breakpoint: { max: 992, min: 768 },
+        items: 2,
+    },
+    md: {
+        breakpoint: { max: 768, min: 0 },
+        items: 1,
+    },
 };
 
-export default function Home({ episodes, description, testimonials }: any) {
-  return (
-    <>
-      <Head>
-        <title>Home | The Go Getters</title>
-      </Head>
+const testimonials = [
+    { name: 'Matt S.', text: 'As a personal friend of the Go-Getters, I can tell you that these guys truly practice what they preach. They are hardworking and genuine, and their content is very thoughtful.' },
+    { name: 'Jordan', text: 'Love to see this coming out of the valley! You guys are onto something with this pod. Only upward for you boys...' },
+    { name: 'Justin R.', text: "Good insightful talk from y'all. Nice to see some of the talent coming together and showcasing that there's more opportunity than the 9-5!" },
+];
 
-      <div id='index'>
-        <Hero description={description} />
-        <PageSection title='Latest Episodes'>
-          <Carousel ssr={true} responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem' removeArrowOnDeviceType={['md']}>
-            {episodes
-              .sort((a: any, b: any) => (a.attributes.number > b.attributes.number ? -1 : 1))
-              .slice(0, 10)
-              .map((episode: any) => (
-                <Episode key={episode.id} number={episode.attributes.number} title={`Ep. ${episode.attributes.number} ${episode.attributes.title}`} youtubeVideoId={episode.attributes.youtubeVideoId} />
-              ))}
-          </Carousel>
+export default function Home() {
+    return (
+        <>
+            <Head>
+                <title>Home | The Go Getters</title>
+            </Head>
 
-          <div id='carouselFooter'>
-            <Button variant='text' href='/episodes'>
-              See all episodes
-            </Button>
-          </div>
-        </PageSection>
+            <div id='index'>
+                <Hero />
+                <PageSection title='Latest Episodes'>
+                    <Carousel ssr={true} responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem' removeArrowOnDeviceType={['md']}>
+                        {episodes
+                            .sort((a: any, b: any) => (a.episodeNumber > b.episodeNumber ? -1 : 1))
+                            .slice(0, 10)
+                            .map((episode: any) => (
+                                <Episode key={episode.id} number={episode.episodeNumber} title={`Ep. ${episode.snippet.title}`} youtubeVideoId={episode.snippet.resourceId.videoId} />
+                            ))}
+                    </Carousel>
 
-        <PageSection title="We're more than just a podcast" color='white' minHeight='40vw' backgroundColor='black' backgroundImage='/red-bg.jpg' backgroundOpacity={0.2} backgroundPosition='50% 25%'>
-          <p>We&apos;re building a lifestyle, fitness, and gaming brand</p>
-        </PageSection>
+                    <div id='carouselFooter'>
+                        <Button variant='text' href='/episodes'>
+                            See all episodes
+                        </Button>
+                    </div>
+                </PageSection>
 
-        <PageSection title='See what the people are saying' maxContentWidth='1600px'>
-          <div id='testimonials'>
-            {testimonials.map((testimonial: any) => (
-              <div className='testimonialWrapper' key={testimonial.id}>
-                <Card variant='outlined'>
-                  <div className='testimonialCardContent'>
-                    <p className='text'>
-                      <Icon path={mdiFormatQuoteOpen} size={1.25} />
-                      {testimonial.attributes.text}
-                      <Icon path={mdiFormatQuoteClose} size={1.25} />
-                    </p>
+                <PageSection title="We're more than just a podcast" color='white' minHeight='40vw' backgroundColor='black' backgroundImage='/red-bg.jpg' backgroundOpacity={0.2} backgroundPosition='50% 25%'>
+                    <p>We&apos;re building a lifestyle, fitness, and gaming brand</p>
+                </PageSection>
 
-                    <p>- {testimonial.attributes.name}</p>
-                  </div>
-                </Card>
-              </div>
-            ))}
-          </div>
-        </PageSection>
-      </div>
-    </>
-  );
-}
+                <PageSection title='See what the people are saying' maxContentWidth='1600px'>
+                    <div id='testimonials'>
+                        {testimonials.map((testimonial: any) => (
+                            <div className='testimonialWrapper' key={testimonial.name}>
+                                <Card variant='outlined'>
+                                    <div className='testimonialCardContent'>
+                                        <p className='text'>
+                                            <Icon path={mdiFormatQuoteOpen} size={1.25} />
+                                            {testimonial.text}
+                                            <Icon path={mdiFormatQuoteClose} size={1.25} />
+                                        </p>
 
-export async function getStaticProps(context: any) {
-  const homepage = await getApiData(`/home-page`, ['*']);
-  const episodes = await getApiData(`/episodes`);
-  const testimonials = await getApiData('/testimonials');
-
-  return {
-    props: { episodes: episodes.sort((a: any, b: any) => (a.attributes.number > b.attributes.number ? 1 : -1)), ...homepage.attributes, testimonials },
-  };
+                                        <p>- {testimonial.name}</p>
+                                    </div>
+                                </Card>
+                            </div>
+                        ))}
+                    </div>
+                </PageSection>
+            </div>
+        </>
+    );
 }

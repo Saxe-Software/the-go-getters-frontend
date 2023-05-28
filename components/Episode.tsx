@@ -1,5 +1,5 @@
 import { useTheme } from '@mui/material/styles';
-import { Card, CardMedia, CardContent, CardActionArea, Link, Typography, Skeleton } from '@mui/material';
+import { Card, CardMedia, CardContent, CardActionArea, Link, Typography } from '@mui/material';
 import styles from '../styles/components/Episode.module.scss';
 
 type EpisodeProps = {
