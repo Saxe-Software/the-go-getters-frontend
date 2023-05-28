@@ -45,7 +45,7 @@ export default function Episode(episode: YoutubeVideo) {
                                 </div>
 
                                 <div>
-                                    <Link href={`/episodes/${episode.episodeNumber + 1}`} style={{ display: episode.episodeNumber == youtubeVideos.length ? 'none' : 'flex' }}>
+                                    <Link href={`/episodes/${episode.episodeNumber + 1}`} style={{ display: episode.mostRecent ? 'none' : 'flex' }}>
                                         Next episode
                                         <Icon path={mdiArrowRight} title='Previous' color='black' />
                                     </Link>
@@ -82,7 +82,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export async function getStaticProps(context: any) {
-    const episode = youtubeVideos.find(video => video.episodeNumber == context.params.episodeNumber);
+    const episode = youtubeVideos.find(video => video.episodeNumber == context.params.episodeNumber) as YoutubeVideo;
+
+    if (episode?.episodeNumber === Math.max(...youtubeVideos.map(video => video.episodeNumber ?? 0))) episode.mostRecent = true;
 
     return {
         props: { ...episode },

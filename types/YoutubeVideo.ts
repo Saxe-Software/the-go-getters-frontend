@@ -25,6 +25,7 @@ type YoutubeVideo = {
         videoOwnerChannelId: string;
     };
     episodeNumber: number;
+    mostRecent?: boolean
 };
 
 export default YoutubeVideo;
