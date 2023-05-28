@@ -20,7 +20,7 @@ export default function SocialBar({ fixed, light }: SocialBarProps) {
           </a>
         </div>
         <div>
-          <a id={styles.youtube} href='https://www.youtube.com/user/kkaskey45'>
+          <a id={styles.youtube} href='https://www.youtube.com/@TheGoGettersPodcast'>
             <Icon path={mdiYoutube} title='Youtube' />
           </a>
         </div>

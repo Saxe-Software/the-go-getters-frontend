@@ -16,7 +16,7 @@ export default class ErrorBoundary extends React.Component<PropsWithChildren, Er
   }
 
   componentDidCatch(error: any, errorInfo: any) {
-    console.log({ error, errorInfo });
+    console.error({ error, errorInfo });
   }
 
   render() {
