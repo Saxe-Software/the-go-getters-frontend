@@ -30,11 +30,11 @@ export function saveYoutubeEpisodes(episodes: Array<any>): boolean {
         episode.episodeNumber = number;
     });
 
-    if (isEqual(episodes, JSON.parse(fs.readFileSync('data/youtube-episodes.json', 'utf8')))) {
+    if (isEqual(episodes, JSON.parse(fs.readFileSync('data/youtube-videos.json', 'utf8')))) {
         console.log('No new Youtube data');
         return false;
     }
 
-    fs.writeFileSync('data/youtube-episodes.json', JSON.stringify(episodes));
+    fs.writeFileSync('data/youtube-videos.json', JSON.stringify(episodes));
     return true;
 }
