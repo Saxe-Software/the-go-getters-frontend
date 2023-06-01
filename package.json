@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:function": "netlify functions:invoke $1 --port 9999 --debug"
+    "test:function": "netlify functions:invoke $1 --port 9999 --debug",
+    "update": "netlify functions:serve && netlify functions:invoke episode-updater --port 9999"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
