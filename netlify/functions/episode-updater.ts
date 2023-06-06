@@ -2,10 +2,15 @@ import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { schedule } from '@netlify/functions';
 import axios from 'axios';
 import { saveSpotifyEpisodes, saveYoutubeEpisodes } from '../../helpers/data';
+import fs from 'fs';
 
 const { YOUTUBE_API_BASE_URL, YOUTUBE_API_KEY, YOUTUBE_PLAYLIST_ID, SPOTIFY_API_BASE_URL, SPOTIFY_API_AUTH_BASE_URL, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_SHOW_ID, BUILD_HOOK_URL } = process.env;
 
 const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+    if (!fs.existsSync('data')) {
+        fs.mkdirSync('data');
+    }
+
     const spotifyEpisodes = await getSpotifyEpisodes();
     const youtubeEpisodes = await getYoutubeEpisodes();
 

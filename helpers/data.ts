@@ -11,12 +11,17 @@ export function saveSpotifyEpisodes(episodes: Array<any>): boolean {
         episode.episodeNumber = number;
     });
 
-    if (isEqual(episodes, JSON.parse(fs.readFileSync('data/spotify-episodes.json', 'utf8')))) {
+    const path = 'data/spotify-episodes.json';
+    const fileExists: boolean = fs.existsSync(path);
+    const newData: boolean = fileExists && !isEqual(episodes, JSON.parse(fs.readFileSync(path, 'utf8')));
+
+    if (!fileExists || newData) {
+        fs.writeFileSync(path, JSON.stringify(episodes));
+    } else {
         console.log('No new Spotify data');
         return false;
     }
 
-    fs.writeFileSync('data/spotify-episodes.json', JSON.stringify(episodes));
     return true;
 }
 
@@ -30,11 +35,16 @@ export function saveYoutubeEpisodes(episodes: Array<any>): boolean {
         episode.episodeNumber = number;
     });
 
-    if (isEqual(episodes, JSON.parse(fs.readFileSync('data/youtube-videos.json', 'utf8')))) {
+    const path = 'data/youtube-videos.json';
+    const fileExists: boolean = fs.existsSync(path);
+    const newData: boolean = fileExists && !isEqual(episodes, JSON.parse(fs.readFileSync(path, 'utf8')));
+
+    if (!fileExists || newData) {
+        fs.writeFileSync(path, JSON.stringify(episodes));
+    } else {
         console.log('No new Youtube data');
         return false;
     }
 
-    fs.writeFileSync('data/youtube-videos.json', JSON.stringify(episodes));
     return true;
 }
