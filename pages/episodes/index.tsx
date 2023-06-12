@@ -4,7 +4,7 @@ import PageSection from '../../components/PageSection';
 import { TextField, Button, Alert, Select, MenuItem } from '@mui/material';
 import { KeyboardEvent, useEffect, useState } from 'react';
 import { caseInsensitiveIncludes } from '../../helpers';
-import youtubeVideos from '../../data/youtube-videos.json';
+import youtubeVideos from '../../netlify/functions/tmp/youtube-videos.json';
 import YoutubeVideo from '../../types/YoutubeVideo';
 
 type EpisodesProps = {

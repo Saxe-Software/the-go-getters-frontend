@@ -4,8 +4,8 @@ import Icon from '@mdi/react';
 import Head from 'next/head';
 import { Link } from '@mui/material';
 import PageSection from '../../components/PageSection';
-import youtubeVideos from '../../data/youtube-videos.json';
-import spotifyEpisodes from '../../data/spotify-episodes.json';
+import youtubeVideos from '../../netlify/functions/tmp/youtube-videos.json';
+import spotifyEpisodes from '../../netlify/functions/tmp/spotify-episodes.json';
 import { formatYoutubeDescription } from '../../helpers';
 import YoutubeVideo from '../../types/YoutubeVideo';
 

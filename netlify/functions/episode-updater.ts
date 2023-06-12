@@ -7,15 +7,15 @@ import fs from 'fs';
 const { YOUTUBE_API_BASE_URL, YOUTUBE_API_KEY, YOUTUBE_PLAYLIST_ID, SPOTIFY_API_BASE_URL, SPOTIFY_API_AUTH_BASE_URL, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_SHOW_ID, BUILD_HOOK_URL } = process.env;
 
 const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-    if (!fs.existsSync('/tmp')) {
-        fs.mkdirSync('/tmp');
+    if (!fs.existsSync('./netlify/functions/tmp')) {
+        fs.mkdirSync('./netlify/functions/tmp');
     }
 
     const spotifyEpisodes = await getSpotifyEpisodes();
     const youtubeEpisodes = await getYoutubeEpisodes();
 
-    const newSpotifyData = saveSpotifyEpisodes(spotifyEpisodes, '/tmp/spotify-episodes.json');
-    const newYoutubeData = saveYoutubeEpisodes(youtubeEpisodes, '/tmp/youtube-videos.json');
+    const newSpotifyData = saveSpotifyEpisodes(spotifyEpisodes, './netlify/functions/tmp/spotify-episodes.json');
+    const newYoutubeData = saveYoutubeEpisodes(youtubeEpisodes, './netlify/functions/tmp/youtube-videos.json');
 
     if (newSpotifyData || newYoutubeData) {
         console.log('New data found, triggering build');
