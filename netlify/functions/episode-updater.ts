@@ -3,28 +3,52 @@ import { schedule } from '@netlify/functions';
 import axios from 'axios';
 import { saveSpotifyEpisodes, saveYoutubeEpisodes } from '../../helpers/data';
 import fs from 'fs';
+import crypto from 'crypto';
+import { simpleGit, CleanOptions } from 'simple-git';
 
+simpleGit().clean(CleanOptions.FORCE);
 const { YOUTUBE_API_BASE_URL, YOUTUBE_API_KEY, YOUTUBE_PLAYLIST_ID, SPOTIFY_API_BASE_URL, SPOTIFY_API_AUTH_BASE_URL, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_SHOW_ID, BUILD_HOOK_URL } = process.env;
 
 const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-    if (!fs.existsSync('./netlify/functions/tmp')) {
-        fs.mkdirSync('./netlify/functions/tmp');
+    if (!fs.existsSync('./data')) {
+        fs.mkdirSync('./data');
     }
 
     const spotifyEpisodes = await getSpotifyEpisodes();
     const youtubeEpisodes = await getYoutubeEpisodes();
 
-    const newSpotifyData = saveSpotifyEpisodes(spotifyEpisodes, './netlify/functions/tmp/spotify-episodes.json');
-    const newYoutubeData = saveYoutubeEpisodes(youtubeEpisodes, './netlify/functions/tmp/youtube-videos.json');
+    const newSpotifyData = saveSpotifyEpisodes(spotifyEpisodes, './data/spotify-episodes.json');
+    const newYoutubeData = saveYoutubeEpisodes(youtubeEpisodes, './data/youtube-videos.json');
 
     if (newSpotifyData || newYoutubeData) {
         console.log('New data found, triggering build');
-        axios.post(BUILD_HOOK_URL as string);
+        //axios.post(BUILD_HOOK_URL as string);
     } else {
         console.log('Data is all up-to-date, skipping rebuild');
+        return { statusCode: 200 };
     }
 
-    return { statusCode: 200 };
+    // Commit to repo
+    try {
+        const git = simpleGit();
+        const hash = crypto.randomBytes(10).toString('hex');
+
+        console.log('Adding data files.');
+        await git.add('.');
+
+        console.log(`Committing files. Hash: #${hash}`);
+        await git.commit(`Update data. Hash: ${hash}`);
+
+        console.log('Pushing commit.');
+        git.push('origin', 'master');
+
+        return { statusCode: 200 };
+    } catch (err) {
+        const message = `Error in git process. [ERROR] ${err}`;
+
+        console.error(message);
+        return { statusCode: 500, message };
+    }
 };
 
 async function getSpotifyToken() {

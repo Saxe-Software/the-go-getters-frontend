@@ -7,7 +7,7 @@ import Episode from '../components/Episode';
 import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from '@mdi/js';
 import Icon from '@mdi/react';
 import Head from 'next/head';
-import episodes from '../netlify/functions/tmp/youtube-videos.json';
+import episodes from '../data/youtube-videos.json';
 
 const carouselBreakpoints = {
     xxl: {
