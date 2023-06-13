@@ -20,6 +20,7 @@
     "@mui/lab": "^5.0.0-alpha.110",
     "@mui/material": "^5.10.16",
     "@netlify/functions": "^1.6.0",
+    "@octokit/core": "^4.2.1",
     "axios": "^0.27.2",
     "crypto": "^1.0.1",
     "lodash": "^4.17.21",
