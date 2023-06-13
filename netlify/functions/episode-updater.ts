@@ -22,7 +22,6 @@ const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) 
 
     if (newSpotifyData || newYoutubeData) {
         console.log('New data found, triggering build');
-        //axios.post(BUILD_HOOK_URL as string);
     } else {
         console.log('Data is all up-to-date, skipping rebuild');
         return { statusCode: 200 };
