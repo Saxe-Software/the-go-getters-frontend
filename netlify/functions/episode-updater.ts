@@ -2,7 +2,6 @@ import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { schedule } from '@netlify/functions';
 import axios from 'axios';
 import { spotifyDataChanged, youtubeDataChanged } from '../../helpers/data';
-import fs from 'fs';
 import crypto from 'crypto';
 import { Octokit } from '@octokit/core';
 
@@ -24,24 +23,31 @@ const {
 const octokit = new Octokit({ auth: GITHUB_API_TOKEN });
 
 const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  if (!fs.existsSync('./data')) {
-    fs.mkdirSync('./data');
-  }
+  try {
+    console.log('Update: Retrieving episode data.');
+    const spotifyEpisodes = await getSpotifyEpisodes();
+    const youtubeEpisodes = await getYoutubeEpisodes();
 
-  const spotifyEpisodes = await getSpotifyEpisodes();
-  const youtubeEpisodes = await getYoutubeEpisodes();
+    console.log('Update: Episode data retrieved, checking for changes.');
+    const newSpotifyData = spotifyDataChanged(spotifyEpisodes, './data/spotify-episodes.json');
+    const newYoutubeData = youtubeDataChanged(youtubeEpisodes, './data/youtube-videos.json');
 
-  const newSpotifyData = spotifyDataChanged(spotifyEpisodes, './data/spotify-episodes.json');
-  const newYoutubeData = youtubeDataChanged(youtubeEpisodes, './data/youtube-videos.json');
+    if (!newSpotifyData && !newYoutubeData) {
+      console.log('Update: Data is all up-to-date, skipping rebuild');
+      return { statusCode: 200 };
+    }
 
-  if (newSpotifyData || newYoutubeData) {
-    console.log('New data found, triggering commit and build pipeline.');
-  } else {
-    console.log('Data is all up-to-date, skipping rebuild');
+    console.log('Update: New data found, triggering commit and build pipeline.');
+    await commitToRepository(spotifyEpisodes, youtubeEpisodes);
+
     return { statusCode: 200 };
+  } catch (err) {
+    console.error(`Error: Error in process. [ERROR] ${err}`);
+    return { statusCode: 500 };
   }
+};
 
-  // Commit to repo
+async function commitToRepository(spotifyEpisodes: Array<any>, youtubeEpisodes: Array<any>): Promise<void> {
   try {
     const hash = crypto.randomBytes(10).toString('hex');
     const files = [
@@ -74,15 +80,10 @@ const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) 
         },
       });
     }
-
-    return { statusCode: 200 };
   } catch (err) {
-    const message = `Error in git process. [ERROR] ${err}`;
-
-    console.error(message);
-    return { statusCode: 500, message };
+    console.error(`Error: Error in Git process. [ERROR] ${err}`);
   }
-};
+}
 
 async function getSpotifyToken() {
   try {
@@ -100,7 +101,7 @@ async function getSpotifyToken() {
 
     return res.data.access_token;
   } catch (err) {
-    logAxiosError(err);
+    logAxiosError(err, 'Error: Error getting Spotify token.');
   }
 }
 
@@ -121,7 +122,7 @@ async function getSpotifyEpisodes(offset: number = 0, pageSize: number = 50): Pr
 
     if (!!res.data.next) episodes = episodes.concat(await getSpotifyEpisodes(offset + pageSize));
   } catch (err) {
-    logAxiosError(err);
+    logAxiosError(err, 'Error: Error getting Spotify episodes.');
   }
 
   return episodes;
@@ -146,23 +147,19 @@ async function getYoutubeEpisodes(pageToken: string = '', pageSize: number = 50)
 
     if (!!res.data.nextPageToken) episodes = episodes.concat(await getYoutubeEpisodes(res.data.nextPageToken));
   } catch (err) {
-    logAxiosError(err);
+    logAxiosError(err, 'Error: Error getting Youtube episodes');
   }
 
   return episodes;
 }
 
-function logAxiosError(axiosError: any) {
+function logAxiosError(axiosError: any, message?: string) {
   if (axiosError.response) {
-    console.error(axiosError.response.data);
+    console.error(message ? `${message} [ERROR] ${axiosError.response.data}` : axiosError.response.data);
     console.error(axiosError.response.status);
-    console.error(axiosError.response.headers);
   } else if (axiosError.request) {
     console.error(axiosError.request);
-  } else {
-    console.error('Error', axiosError.message);
   }
-  console.error(axiosError.config);
 }
 
 const handler = schedule('@daily', myHandler);
