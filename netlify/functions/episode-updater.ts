@@ -58,6 +58,8 @@ const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) 
         file_path: file.path,
       });
 
+      console.log(sha)
+
       await octokit.request(`PUT /repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${file.path}`, {
         owner: GITHUB_OWNER as string,
         repo: GITHUB_REPO as string,
@@ -74,7 +76,7 @@ const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) 
         },
       });
     }
-    
+
     return { statusCode: 200 };
   } catch (err) {
     const message = `Error in git process. [ERROR] ${err}`;
