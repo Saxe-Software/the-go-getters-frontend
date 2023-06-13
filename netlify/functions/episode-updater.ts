@@ -1,7 +1,7 @@
 import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { schedule } from '@netlify/functions';
 import axios from 'axios';
-import { saveSpotifyEpisodes, saveYoutubeEpisodes } from '../../helpers/data';
+import { spotifyDataChanged, youtubeDataChanged } from '../../helpers/data';
 import fs from 'fs';
 import crypto from 'crypto';
 import { Octokit } from '@octokit/core';
@@ -31,11 +31,11 @@ const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) 
   const spotifyEpisodes = await getSpotifyEpisodes();
   const youtubeEpisodes = await getYoutubeEpisodes();
 
-  const newSpotifyData = saveSpotifyEpisodes(spotifyEpisodes, './data/spotify-episodes.json');
-  const newYoutubeData = saveYoutubeEpisodes(youtubeEpisodes, './data/youtube-videos.json');
+  const newSpotifyData = spotifyDataChanged(spotifyEpisodes, './data/spotify-episodes.json');
+  const newYoutubeData = youtubeDataChanged(youtubeEpisodes, './data/youtube-videos.json');
 
   if (newSpotifyData || newYoutubeData) {
-    console.log('New data found, triggering build');
+    console.log('New data found, triggering commit and build pipeline.');
   } else {
     console.log('Data is all up-to-date, skipping rebuild');
     return { statusCode: 200 };
