@@ -162,6 +162,6 @@ function logAxiosError(axiosError: any, message?: string) {
   }
 }
 
-const handler = schedule('@daily', myHandler);
+const handler = schedule('@hourly', myHandler);
 
 export { handler };
