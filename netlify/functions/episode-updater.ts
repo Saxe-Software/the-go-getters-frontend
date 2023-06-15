@@ -37,7 +37,6 @@ const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) 
       return { statusCode: 200 };
     }
 
-    console.log('Update: New data found, triggering commit and build pipeline.');
     await commitToRepository(spotifyEpisodes, youtubeEpisodes);
 
     return { statusCode: 200 };
