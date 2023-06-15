@@ -1,9 +1,10 @@
 import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { schedule } from '@netlify/functions';
 import axios from 'axios';
-import { spotifyDataChanged, youtubeDataChanged } from '../../helpers/data';
+import { decorateEpisodeData } from '../../helpers/data';
 import crypto from 'crypto';
 import { Octokit } from '@octokit/core';
+import { eq, isEqual } from 'lodash';
 
 const {
   YOUTUBE_API_BASE_URL,
@@ -28,18 +29,13 @@ const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) 
     const spotifyEpisodes = await getSpotifyEpisodes();
     const youtubeEpisodes = await getYoutubeEpisodes();
 
-    console.log('Update: Episode data retrieved, checking for changes.');
-    const newSpotifyData = spotifyDataChanged(spotifyEpisodes, './data/spotify-episodes.json');
-    const newYoutubeData = youtubeDataChanged(youtubeEpisodes, './data/youtube-videos.json');
+    console.log('Update: Episode data retrieved.');
+    decorateEpisodeData(spotifyEpisodes);
+    decorateEpisodeData(youtubeEpisodes);
 
-    if (!newSpotifyData && !newYoutubeData) {
-      console.log('Update: Data is all up-to-date, skipping rebuild');
-      return { statusCode: 200 };
-    }
+    await runGitProcess(spotifyEpisodes, youtubeEpisodes);
 
-    console.log('Update: New data found, triggering commit and build pipeline.');
-    await commitToRepository(spotifyEpisodes, youtubeEpisodes);
-
+    console.log('Process Complete.');
     return { statusCode: 200 };
   } catch (err) {
     console.error(`Error: Error in process. [ERROR] ${err}`);
@@ -47,38 +43,54 @@ const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) 
   }
 };
 
-async function commitToRepository(spotifyEpisodes: Array<any>, youtubeEpisodes: Array<any>): Promise<void> {
+async function runGitProcess(spotifyEpisodes: Array<any>, youtubeEpisodes: Array<any>): Promise<void> {
   try {
-    const hash = crypto.randomBytes(10).toString('hex');
+    const hash = crypto.randomBytes(5).toString('hex');
     const files = [
       { path: 'data/spotify-episodes.json', data: spotifyEpisodes },
       { path: 'data/youtube-videos.json', data: youtubeEpisodes },
     ];
 
     for (const file of files) {
+      // Get file data from Github
       const {
-        data: { sha },
+        data: { content, sha },
       } = await octokit.request(`GET /repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${file.path}`, {
         owner: GITHUB_OWNER,
         repo: GITHUB_REPO,
         file_path: file.path,
       });
 
-      await octokit.request(`PUT /repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${file.path}`, {
-        owner: GITHUB_OWNER as string,
-        repo: GITHUB_REPO as string,
-        path: file.path,
-        message: `Update episode data. Hash: #${hash}`,
-        comitter: {
-          name: GITHUB_NAME as string,
-          email: GITHUB_EMAIL as string,
-        },
-        content: Buffer.from(JSON.stringify(file.data)).toString('base64'),
-        sha,
-        headers: {
-          'X-GitHub-Api-Version': '2022-11-28',
-        },
-      });
+      // Get base64 encoded file content
+      const oldFileContent = content;
+      const newFileContent = Buffer.from(JSON.stringify(file.data)).toString('base64');
+
+      // Parse data
+      const oldDataParsed = JSON.parse(Buffer.from(oldFileContent, 'base64').toString('utf8'));
+      const newDataParsed = JSON.parse(Buffer.from(newFileContent, 'base64').toString('utf8'));
+
+      // Compare contents, make commit if different
+      console.log('Update: Checking data for differences.');
+      if (!isEqual(oldDataParsed, newDataParsed)) {
+        console.log('Update: Changes found, creating a new commit and triggering build.');
+        await octokit.request(`PUT /repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${file.path}`, {
+          owner: GITHUB_OWNER as string,
+          repo: GITHUB_REPO as string,
+          path: file.path,
+          message: `Update episode data. Hash: #${hash}`,
+          comitter: {
+            name: GITHUB_NAME as string,
+            email: GITHUB_EMAIL as string,
+          },
+          content: newFileContent,
+          sha,
+          headers: {
+            'X-GitHub-Api-Version': '2022-11-28',
+          },
+        });
+      } else {
+        console.log('Update: Data is all up-to-date, skipping commit');
+      }
     }
   } catch (err) {
     console.error(`Error: Error in Git process. [ERROR] ${err}`);
