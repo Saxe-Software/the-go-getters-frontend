@@ -1,4 +1,4 @@
-export function decorateEpisodeData(episodes: Array<any>): void {
+export function normalizeEpisodeData(episodes: Array<any>): void {
   // Decorate object with episode number
   episodes.forEach(episode => {
     const regex = /#(\d+)/;
@@ -7,4 +7,6 @@ export function decorateEpisodeData(episodes: Array<any>): void {
 
     episode.episodeNumber = number;
   });
+
+  episodes = episodes.filter(episode => !!episode.episodeNumber)
 }

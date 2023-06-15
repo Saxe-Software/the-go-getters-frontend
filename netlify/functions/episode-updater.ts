@@ -1,10 +1,10 @@
 import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { schedule } from '@netlify/functions';
 import axios from 'axios';
-import { decorateEpisodeData } from '../../helpers/data';
+import { normalizeEpisodeData } from '../../helpers/data';
 import crypto from 'crypto';
 import { Octokit } from '@octokit/core';
-import { eq, isEqual } from 'lodash';
+import { isEqual } from 'lodash';
 
 const {
   YOUTUBE_API_BASE_URL,
@@ -30,8 +30,8 @@ const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) 
     const youtubeEpisodes = await getYoutubeEpisodes();
 
     console.log('Update: Episode data retrieved.');
-    decorateEpisodeData(spotifyEpisodes);
-    decorateEpisodeData(youtubeEpisodes);
+    normalizeEpisodeData(spotifyEpisodes);
+    normalizeEpisodeData(youtubeEpisodes);
 
     await runGitProcess(spotifyEpisodes, youtubeEpisodes);
 
