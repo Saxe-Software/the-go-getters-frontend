@@ -70,9 +70,9 @@ async function runGitProcess(spotifyEpisodes: Array<any>, youtubeEpisodes: Array
       const newDataParsed = JSON.parse(Buffer.from(newFileContent, 'base64').toString('utf8'));
 
       // Compare contents, make commit if different
-      console.log('Update: Checking data for differences.');
+      console.log(`Update: Checking data for differences in file: '${file.path}'.`);
       if (!isEqual(oldDataParsed, newDataParsed)) {
-        console.log('Update: Changes found, creating a new commit and triggering build.');
+        console.log(`Update: Changes found. Creating a new commit and triggering build.`);
         await octokit.request(`PUT /repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${file.path}`, {
           owner: GITHUB_OWNER as string,
           repo: GITHUB_REPO as string,
@@ -89,7 +89,7 @@ async function runGitProcess(spotifyEpisodes: Array<any>, youtubeEpisodes: Array
           },
         });
       } else {
-        console.log('Update: Data is all up-to-date, skipping commit');
+        console.log('Update: Data is all up-to-date. Skipping commit.');
       }
     }
   } catch (err) {
