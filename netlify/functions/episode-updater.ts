@@ -37,6 +37,7 @@ const myHandler: Handler = async (event: HandlerEvent, context: HandlerContext) 
       return { statusCode: 200 };
     }
 
+    console.log('Update: New data found, triggering commit and build pipeline.');
     await commitToRepository(spotifyEpisodes, youtubeEpisodes);
 
     return { statusCode: 200 };
@@ -161,6 +162,6 @@ function logAxiosError(axiosError: any, message?: string) {
   }
 }
 
-const handler = schedule('@hourly', myHandler);
+const handler = schedule('@daily', myHandler);
 
 export { handler };
