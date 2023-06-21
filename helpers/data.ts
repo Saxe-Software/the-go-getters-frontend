@@ -6,6 +6,9 @@ export function normalizeEpisodeData(episodes: Array<any>): void {
     const number = match ? parseInt(match[1]) : null;
 
     episode.episodeNumber = number;
+
+    if (!!episode.etag)
+      delete episode.etag;
   });
 
   episodes = episodes.filter(episode => !!episode.episodeNumber)
