@@ -2,6 +2,8 @@ type YoutubeVideo = {
     kind: string;
     etag: string;
     id: string;
+    previousEpisodeId: string;
+    nextEpisodeId: string;
     snippet: {
         publishedAt: string;
         channelId: string;
@@ -24,7 +26,7 @@ type YoutubeVideo = {
         videoOwnerChannelTitle: string;
         videoOwnerChannelId: string;
     };
-    episodeNumber: number;
+    episodeNumber?: number;
     mostRecent?: boolean
 };
 

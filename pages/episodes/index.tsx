@@ -87,7 +87,7 @@ export default function Episodes({ episodes }: EpisodesProps) {
                 <div id='episodes' className='episodeList'>
                     {filteredAndSortedEpisodes.map((episode: YoutubeVideo) => (
                         <div key={episode.id} className='episodeWrapper'>
-                            <Episode number={episode.episodeNumber} title={`Ep. ${episode.snippet.title}`} youtubeVideoId={episode.snippet.resourceId.videoId} />
+                            <Episode id={episode.id} title={`Ep. ${episode.snippet.title}`} youtubeVideoId={episode.snippet.resourceId.videoId} />
                         </div>
                     ))}
                 </div>

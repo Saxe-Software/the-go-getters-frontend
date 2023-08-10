@@ -49,7 +49,7 @@ export default function Home() {
                             .sort((a: any, b: any) => (a.episodeNumber > b.episodeNumber ? -1 : 1))
                             .slice(0, 10)
                             .map((episode: any) => (
-                                <Episode key={episode.id} number={episode.episodeNumber} title={`Ep. ${episode.snippet.title}`} youtubeVideoId={episode.snippet.resourceId.videoId} />
+                                <Episode key={episode.id} id={episode.id} title={`Ep. ${episode.snippet.title}`} youtubeVideoId={episode.snippet.resourceId.videoId} />
                             ))}
                     </Carousel>
 
