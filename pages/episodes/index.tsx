@@ -8,96 +8,105 @@ import youtubeVideos from '../../data/youtube-videos.json';
 import YoutubeVideo from '../../types/YoutubeVideo';
 
 type EpisodesProps = {
-    episodes: Array<YoutubeVideo>;
+  episodes: Array<YoutubeVideo>;
 };
 
 export default function Episodes({ episodes }: EpisodesProps) {
-    const [filteredAndSortedEpisodes, setFilteredAndSortedEpisodes] = useState<Array<YoutubeVideo>>([...episodes].reverse());
-    const [searchInputVal, setSearchInputVal] = useState<string>('');
-    const [searchVal, setSearchVal] = useState<string>('');
-    const [sort, setSort] = useState<string>('newest');
+  const [filteredAndSortedEpisodes, setFilteredAndSortedEpisodes] = useState<Array<YoutubeVideo>>(
+    [...episodes].reverse()
+  );
+  const [searchInputVal, setSearchInputVal] = useState<string>('');
+  const [searchVal, setSearchVal] = useState<string>('');
+  const [sort, setSort] = useState<string>('newest');
 
-    const handleKeyPress = (e: KeyboardEvent) => {
-        if (e.key === 'Enter') {
-            setSearchVal(searchInputVal);
-        }
-    };
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      setSearchVal(searchInputVal);
+    }
+  };
 
-    useEffect(() => {
-        let allEpisodes = [...episodes];
-        let filtered;
+  useEffect(() => {
+    let allEpisodes = [...episodes];
+    let filtered;
 
-        if (!searchVal) filtered = allEpisodes;
-        else
-            filtered = allEpisodes.filter(episode => {
-                return caseInsensitiveIncludes(episode.snippet.title, searchVal);
-            });
+    if (!searchVal) filtered = allEpisodes;
+    else
+      filtered = allEpisodes.filter(episode => {
+        return caseInsensitiveIncludes(episode.snippet.title, searchVal);
+      });
 
-        setFilteredAndSortedEpisodes(sort === 'newest' ? [...filtered].reverse() : filtered);
-    }, [episodes, searchVal, sort]);
+    setFilteredAndSortedEpisodes(sort === 'newest' ? [...filtered].reverse() : filtered);
+  }, [episodes, searchVal, sort]);
 
-    return (
-        <>
-            <Head>
-                <title>Episodes | The Go Getters</title>
-            </Head>
+  return (
+    <>
+      <Head>
+        <title>Episodes | The Go Getters</title>
+      </Head>
 
-            <PageSection title='All Episodes'>
-                <div id='filters'>
-                    <div id='search'>
-                        <TextField size='small' value={searchInputVal} onChange={e => setSearchInputVal(e.target.value)} onKeyUp={handleKeyPress} />
+      <PageSection title='All Episodes'>
+        <div id='filters'>
+          <div id='search'>
+            <TextField
+              size='small'
+              value={searchInputVal}
+              onChange={e => setSearchInputVal(e.target.value)}
+              onKeyUp={handleKeyPress}
+            />
 
-                        <div>
-                            <Button variant='contained' disableElevation onClick={() => setSearchVal(searchInputVal)}>
-                                Filter
-                            </Button>
-                            <Button
-                                variant='outlined'
-                                disableElevation
-                                onClick={() => {
-                                    setSearchInputVal('');
-                                    setSearchVal('');
-                                }}
-                            >
-                                Clear
-                            </Button>
-                        </div>
-                    </div>
+            <div>
+              <Button variant='contained' disableElevation onClick={() => setSearchVal(searchInputVal)}>
+                Filter
+              </Button>
+              <Button
+                variant='outlined'
+                disableElevation
+                onClick={() => {
+                  setSearchInputVal('');
+                  setSearchVal('');
+                }}>
+                Clear
+              </Button>
+            </div>
+          </div>
 
-                    <div id='sort'>
-                        <Select
-                            value={sort}
-                            onChange={e => {
-                                setSort(e.target.value);
-                            }}
-                            size='small'
-                        >
-                            <MenuItem value={'newest'}>Newest</MenuItem>
-                            <MenuItem value={'oldest'}>Oldest</MenuItem>
-                        </Select>
-                    </div>
-                </div>
+          <div id='sort'>
+            <Select
+              value={sort}
+              onChange={e => {
+                setSort(e.target.value);
+              }}
+              size='small'>
+              <MenuItem value={'newest'}>Newest</MenuItem>
+              <MenuItem value={'oldest'}>Oldest</MenuItem>
+            </Select>
+          </div>
+        </div>
 
-                {!filteredAndSortedEpisodes.length && (
-                    <Alert sx={{ margin: '1em' }} variant='outlined' severity='info'>
-                        Sorry, no episodes match your search
-                    </Alert>
-                )}
+        {!filteredAndSortedEpisodes.length && (
+          <Alert sx={{ margin: '1em' }} variant='outlined' severity='info'>
+            Sorry, no episodes match your search
+          </Alert>
+        )}
 
-                <div id='episodes' className='episodeList'>
-                    {filteredAndSortedEpisodes.map((episode: YoutubeVideo) => (
-                        <div key={episode.id} className='episodeWrapper'>
-                            <Episode id={episode.id} title={`Ep. ${episode.snippet.title}`} youtubeVideoId={episode.snippet.resourceId.videoId} />
-                        </div>
-                    ))}
-                </div>
-            </PageSection>
-        </>
-    );
+        <div id='episodes' className='episodeList'>
+          {filteredAndSortedEpisodes.map((episode: YoutubeVideo) => (
+            <div key={episode.id} className='episodeWrapper'>
+              <Episode
+                id={episode.id}
+                title={episode.snippet.title}
+                youtubeVideoId={episode.snippet.resourceId.videoId}
+              />
+            </div>
+          ))}
+        </div>
+      </PageSection>
+    </>
+  );
 }
 
 export async function getStaticProps(context: any) {
-    return {
-        props: { episodes: youtubeVideos.sort((a: any, b: any) => (a.episodeNumber > b.episodeNumber ? 1 : -1)).filter(episode => !!episode.episodeNumber) },
-    };
+  return {
+    props: { episodes: youtubeVideos.filter(episode => Object.keys(episode.snippet.thumbnails).length > 0) },
+  };
 }

@@ -10,6 +10,4 @@ export function normalizeEpisodeData(episodes: Array<any>): void {
     if (!!episode.etag)
       delete episode.etag;
   });
-
-  episodes = episodes.filter(episode => !!episode.episodeNumber)
 }

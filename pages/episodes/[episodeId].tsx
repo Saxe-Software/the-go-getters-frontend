@@ -13,7 +13,7 @@ export default function Episode(episode: YoutubeVideo) {
   return (
     <>
       <Head>
-        <title>Ep. {episode.snippet.title} | The Go Getters</title>
+        <title>{episode.snippet.title} | The Go Getters</title>
       </Head>
 
       <PageSection>
@@ -76,7 +76,7 @@ export default function Episode(episode: YoutubeVideo) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = youtubeVideos.map((episode, ind) => {
+  const paths = youtubeVideos.map(episode => {
     return {
       params: {
         episodeId: episode.id.toString(),

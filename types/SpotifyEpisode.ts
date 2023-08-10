@@ -23,7 +23,7 @@ type SpotifyEpisode = {
     release_date_precision: string;
     type: string;
     uri: string;
-    episodeNumber: number;
+    episodeNumber?: number;
 };
 
 export default SpotifyEpisode;

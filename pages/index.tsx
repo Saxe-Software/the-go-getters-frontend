@@ -46,10 +46,11 @@ export default function Home() {
                 <PageSection title='Latest Episodes'>
                     <Carousel ssr={true} responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem' removeArrowOnDeviceType={['md']}>
                         {episodes
-                            .sort((a: any, b: any) => (a.episodeNumber > b.episodeNumber ? -1 : 1))
+                            .filter(episode => Object.keys(episode.snippet.thumbnails).length > 0)
+                            .reverse()
                             .slice(0, 10)
                             .map((episode: any) => (
-                                <Episode key={episode.id} id={episode.id} title={`Ep. ${episode.snippet.title}`} youtubeVideoId={episode.snippet.resourceId.videoId} />
+                                <Episode key={episode.id} id={episode.id} title={episode.snippet.title} youtubeVideoId={episode.snippet.resourceId.videoId} />
                             ))}
                     </Carousel>
 
