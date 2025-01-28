@@ -13,14 +13,16 @@ export default function SocialBar({ fixed, light }: SocialBarProps) {
 
   return (
     <>
-      <div className={`${styles.socialBar} ${light ? styles.light : ''}`} style={{ position: fixed ? 'fixed' : 'absolute' }}>
+      <div
+        className={`${styles.socialBar} ${light ? styles.light : ''}`}
+        style={{ position: fixed ? 'fixed' : 'absolute' }}>
         <div>
           <a id={styles.spotify} href='https://open.spotify.com/show/1WDdy89IajoQ8qjguLPl94'>
             <Icon path={mdiSpotify} title='Spotify' />
           </a>
         </div>
         <div>
-          <a id={styles.youtube} href='https://www.youtube.com/@TheGoGettersPodcast'>
+          <a id={styles.youtube} href='https://www.youtube.com/@TheGoGettersYT'>
             <Icon path={mdiYoutube} title='Youtube' />
           </a>
         </div>
@@ -57,8 +59,7 @@ export default function SocialBar({ fixed, light }: SocialBarProps) {
             filter: drop-shadow(0 0 0.05rem ${theme.palette.background.paper});
           }
           `,
-        }}
-      ></style>
+        }}></style>
     </>
   );
 }
