@@ -36,55 +36,72 @@ const testimonials = [
 
 export default function Home() {
     return (
-        <>
-            <Head>
-                <title>Home | The Go Getters</title>
-            </Head>
+      <>
+        <Head>
+          <title>Home | The Go Getters</title>
+        </Head>
 
-            <div id='index'>
-                <Hero />
-                <PageSection title='Latest Episodes'>
-                    <Carousel ssr={true} responsive={carouselBreakpoints} containerClass='carouselContainer' itemClass='carouselItem' removeArrowOnDeviceType={['md']}>
-                        {episodes
-                            .filter(episode => Object.keys(episode.snippet.thumbnails).length > 0)
-                            .reverse()
-                            .slice(0, 10)
-                            .map((episode: any) => (
-                                <Episode key={episode.id} id={episode.id} title={episode.snippet.title} youtubeVideoId={episode.snippet.resourceId.videoId} />
-                            ))}
-                    </Carousel>
+        <div id='index'>
+          <Hero />
+          <PageSection title='Latest Episodes'>
+            <Carousel
+              ssr={true}
+              responsive={carouselBreakpoints}
+              containerClass='carouselContainer'
+              itemClass='carouselItem'
+              removeArrowOnDeviceType={['md']}>
+              {episodes
+                .filter(episode => Object.keys(episode.snippet.thumbnails).length > 0)
+                // .reverse()
+                .slice(0, 10)
+                .map((episode: any) => (
+                  <Episode
+                    key={episode.id}
+                    id={episode.id}
+                    title={episode.snippet.title}
+                    youtubeVideoId={episode.snippet.resourceId.videoId}
+                  />
+                ))}
+            </Carousel>
 
-                    <div id='carouselFooter'>
-                        <Button variant='text' href='/episodes'>
-                            See all episodes
-                        </Button>
-                    </div>
-                </PageSection>
-
-                <PageSection title="We're more than just a podcast" color='white' minHeight='40vw' backgroundColor='black' backgroundImage='/red-bg.jpg' backgroundOpacity={0.2} backgroundPosition='50% 25%'>
-                    <p>We&apos;re building a lifestyle, fitness, and gaming brand</p>
-                </PageSection>
-
-                <PageSection title='See what the people are saying' maxContentWidth='1600px'>
-                    <div id='testimonials'>
-                        {testimonials.map((testimonial: any) => (
-                            <div className='testimonialWrapper' key={testimonial.name}>
-                                <Card variant='outlined'>
-                                    <div className='testimonialCardContent'>
-                                        <p className='text'>
-                                            <Icon path={mdiFormatQuoteOpen} size={1.25} />
-                                            {testimonial.text}
-                                            <Icon path={mdiFormatQuoteClose} size={1.25} />
-                                        </p>
-
-                                        <p>- {testimonial.name}</p>
-                                    </div>
-                                </Card>
-                            </div>
-                        ))}
-                    </div>
-                </PageSection>
+            <div id='carouselFooter'>
+              <Button variant='text' href='/episodes'>
+                See all episodes
+              </Button>
             </div>
-        </>
+          </PageSection>
+
+          <PageSection
+            title="We're more than just a podcast"
+            color='white'
+            minHeight='40vw'
+            backgroundColor='black'
+            backgroundImage='/red-bg.jpg'
+            backgroundOpacity={0.2}
+            backgroundPosition='50% 25%'>
+            <p>We&apos;re building a lifestyle, fitness, and gaming brand</p>
+          </PageSection>
+
+          <PageSection title='See what the people are saying' maxContentWidth='1600px'>
+            <div id='testimonials'>
+              {testimonials.map((testimonial: any) => (
+                <div className='testimonialWrapper' key={testimonial.name}>
+                  <Card variant='outlined'>
+                    <div className='testimonialCardContent'>
+                      <p className='text'>
+                        <Icon path={mdiFormatQuoteOpen} size={1.25} />
+                        {testimonial.text}
+                        <Icon path={mdiFormatQuoteClose} size={1.25} />
+                      </p>
+
+                      <p>- {testimonial.name}</p>
+                    </div>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          </PageSection>
+        </div>
+      </>
     );
 }

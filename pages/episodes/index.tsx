@@ -17,7 +17,7 @@ export default function Episodes({ episodes }: EpisodesProps) {
   );
   const [searchInputVal, setSearchInputVal] = useState<string>('');
   const [searchVal, setSearchVal] = useState<string>('');
-  const [sort, setSort] = useState<string>('newest');
+  const [sortDirection, setSortDirection] = useState<string>('newest');
 
   const handleKeyPress = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -35,8 +35,8 @@ export default function Episodes({ episodes }: EpisodesProps) {
         return caseInsensitiveIncludes(episode.snippet.title, searchVal);
       });
 
-    setFilteredAndSortedEpisodes(sort === 'newest' ? [...filtered].reverse() : filtered);
-  }, [episodes, searchVal, sort]);
+    setFilteredAndSortedEpisodes(sortDirection === 'newest' ? filtered : [...filtered].reverse());
+  }, [episodes, searchVal, sortDirection]);
 
   return (
     <>
@@ -72,9 +72,9 @@ export default function Episodes({ episodes }: EpisodesProps) {
 
           <div id='sort'>
             <Select
-              value={sort}
+              value={sortDirection}
               onChange={e => {
-                setSort(e.target.value);
+                setSortDirection(e.target.value);
               }}
               size='small'>
               <MenuItem value={'newest'}>Newest</MenuItem>
