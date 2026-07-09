@@ -7,9 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:function": "netlify functions:invoke $1 --port 9999 --debug",
-    "serve": "netlify functions:serve",
-    "update": "netlify functions:invoke episode-updater --port 9999"
+    "test": "node --test 'scripts/**/*.test.mjs'"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -19,8 +17,6 @@
     "@mui/icons-material": "^5.10.9",
     "@mui/lab": "^5.0.0-alpha.110",
     "@mui/material": "^5.10.16",
-    "@netlify/functions": "^1.6.0",
-    "@octokit/core": "^4.2.1",
     "axios": "^0.27.2",
     "crypto": "^1.0.1",
     "lodash": "^4.17.21",
@@ -29,8 +25,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-intersection-observer": "^9.4.0",
-    "react-multi-carousel": "^2.8.2",
-    "simple-git": "^3.19.0"
+    "react-multi-carousel": "^2.8.2"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^4.41.6",
