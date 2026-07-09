@@ -7,25 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "node --test 'scripts/**/*.test.mjs'"
+    "test": "node --test 'scripts/**/*.test.mjs' 'helpers/**/*.test.mjs'"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
-    "@mdi/js": "^7.0.96",
-    "@mdi/react": "^1.6.1",
-    "@mui/icons-material": "^5.10.9",
-    "@mui/lab": "^5.0.0-alpha.110",
-    "@mui/material": "^5.10.16",
     "axios": "^0.27.2",
     "crypto": "^1.0.1",
     "lodash": "^4.17.21",
     "next": "12.3.0",
     "nodemailer": "^6.9.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-intersection-observer": "^9.4.0",
-    "react-multi-carousel": "^2.8.2"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^4.41.6",
