@@ -20,18 +20,26 @@ function stripBranding(title) {
   return title.replace(/\s*\|\s*(the\s+)?go[\s-]?getters\s+podcast.*$/i, '').trim();
 }
 
+function guestSeparatorIndex(clean) {
+  const dash = clean.lastIndexOf(' - ');
+  if (dash !== -1) return { idx: dash, len: 3 };
+  const pipe = clean.lastIndexOf(' | ');
+  if (pipe !== -1) return { idx: pipe, len: 3 };
+  return null;
+}
+
 export function parseGuest(title) {
   const clean = stripBranding(title);
-  const idx = clean.lastIndexOf(' - ');
-  if (idx === -1) return null;
-  const guest = stripEpisodeHash(clean.slice(idx + 3));
+  const sep = guestSeparatorIndex(clean);
+  if (!sep) return null;
+  const guest = stripEpisodeHash(clean.slice(sep.idx + sep.len));
   return guest || null;
 }
 
 export function parseShortTitle(title) {
   const clean = stripBranding(title);
-  const idx = clean.lastIndexOf(' - ');
-  return stripEpisodeHash(idx === -1 ? clean : clean.slice(0, idx));
+  const sep = guestSeparatorIndex(clean);
+  return stripEpisodeHash(sep ? clean.slice(0, sep.idx) : clean);
 }
 
 export function bestThumbnail(thumbnails) {

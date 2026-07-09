@@ -16,7 +16,7 @@ export default function Episode(episode: YoutubeVideo) {
   return (
     <>
       <Head>
-        <title>{episode.snippet.title} | The Go Getters</title>
+        <title>{`${episode.snippet.title} | The Go Getters`}</title>
       </Head>
 
       <div style={{ position: 'relative', minHeight: '100vh' }}>

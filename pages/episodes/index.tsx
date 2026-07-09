@@ -231,7 +231,7 @@ export default function Episodes({ episodes, years }: EpisodesProps) {
                     padding: '26px 8px',
                     borderBottom: '1px solid #1c1c18',
                   }}>
-                  <span className='anton' style={{ fontSize: 34, color: '#3a3a34', lineHeight: 1 }}>
+                  <span className='anton epNum' style={{ fontSize: 34, color: '#3a3a34', lineHeight: 1 }}>
                     {ep.num ?? '—'}
                   </span>
                   <div>

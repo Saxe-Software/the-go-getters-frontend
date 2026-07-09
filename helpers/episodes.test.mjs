@@ -52,6 +52,17 @@ test('parseGuest ignores the branding segment after a pipe', () => {
   assert.equal(parseGuest('Big Story - Jane Doe | Go Getters Podcast'), 'Jane Doe');
 });
 
+test('parseGuest treats a non-branding pipe segment as the guest', () => {
+  assert.equal(parseGuest("Chasing the Title of The World's Strongest Man | Bobby Thompson"), 'Bobby Thompson');
+});
+
+test('parseShortTitle drops the guest after a non-branding pipe', () => {
+  assert.equal(
+    parseShortTitle("Chasing the Title of The World's Strongest Man | Bobby Thompson"),
+    "Chasing the Title of The World's Strongest Man"
+  );
+});
+
 test('bestThumbnail prefers maxres then falls back down the ladder', () => {
   assert.equal(bestThumbnail({ maxres: { url: 'M' }, high: { url: 'H' } }), 'M');
   assert.equal(bestThumbnail({ high: { url: 'H' }, default: { url: 'D' } }), 'H');

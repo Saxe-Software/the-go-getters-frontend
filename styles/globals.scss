@@ -339,6 +339,21 @@ select:focus {
   }
 }
 
+@media (max-width: 700px) {
+  .epRow {
+    grid-template-columns: 1fr auto !important;
+    gap: 14px !important;
+
+    .epNum {
+      display: none;
+    }
+
+    h3 {
+      font-size: 17px !important;
+    }
+  }
+}
+
 // ---- Shared page grids ----
 
 @media (max-width: 900px) {

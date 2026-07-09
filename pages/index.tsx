@@ -160,15 +160,15 @@ export default function Home({ latest }: HomeProps) {
               zIndex: 2,
               display: 'flex',
               justifyContent: 'center',
-              gap: 24,
+              gap: 'clamp(12px, 2vw, 24px)',
               animationDelay: '.4s',
             }}>
             {hosts.map(host => (
               <div key={host.name} style={{ textAlign: 'center', marginTop: host.offset ? 60 : 0 }}>
                 <div
                   style={{
-                    width: 190,
-                    height: 230,
+                    width: 'clamp(140px, 14vw, 300px)',
+                    aspectRatio: '19 / 23',
                     border: '2px solid #E8A838',
                     borderRadius: 200,
                     overflow: 'hidden',
